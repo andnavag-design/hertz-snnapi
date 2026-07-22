@@ -3,148 +3,171 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>Snnapi — Inspección Vehicular</title>
+<title>Hertz — Inspección Vehicular</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap');
+ 
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-
+ 
 :root{
-  --mg:#CB6CE6;
-  --pu:#833AE0;
-  --navy:#0D1B2A;
-  --slate:#4A4E69;
-  --cloud:#F5F6F8;
+  --hertz-yellow:#F5C400;
+  --hertz-yellow-dark:#C9A000;
+  --hertz-black:#0A0A0A;
+  --hertz-charcoal:#1C1C1C;
+  --hertz-mid:#2E2E2E;
+  --hertz-steel:#5A5A5A;
+  --hertz-mist:#F2F2F2;
+  --hertz-border:#E0E0E0;
+  --white:#FFFFFF;
   --green:#22C55E;
-  --yellow:#F59E0B;
-  --red:#EF4444;
-  --border:#E2E8F0;
-  --white:#fff;
+  --green-dark:#15803D;
+  --yellow-soft:#FFFAE6;
+  --red:#DC2626;
+  --red-soft:#FEF2F2;
+  --orange:#F59E0B;
 }
-
+ 
 body{
   font-family:'Inter',sans-serif;
-  background:var(--cloud);
-  color:var(--navy);
+  background:var(--hertz-mist);
+  color:var(--hertz-black);
   min-height:100vh;
   max-width:430px;
   margin:0 auto;
 }
-
+ 
 /* ── TOPBAR ── */
 .topbar{
-  background:var(--navy);
-  padding:14px 20px;
+  background:var(--hertz-black);
+  padding:0 20px;
+  height:58px;
   display:flex;align-items:center;justify-content:space-between;
   position:sticky;top:0;z-index:50;
+  border-bottom:3px solid var(--hertz-yellow);
 }
 .topbar-logo{
-  font-family:'Poppins',sans-serif;font-weight:700;font-size:18px;
-  color:var(--mg);letter-spacing:0.5px;
+  display:flex;align-items:center;gap:0;
 }
-.topbar-sub{font-size:11px;color:rgba(255,255,255,0.5);font-weight:400;margin-top:1px;}
+.topbar-logo-text{
+  font-family:'Barlow Condensed',sans-serif;
+  font-weight:800;font-size:26px;
+  color:var(--white);letter-spacing:-0.5px;
+  line-height:1;
+}
+.topbar-logo-bar{
+  width:38px;height:4px;background:var(--hertz-yellow);
+  margin-top:2px;display:none;
+}
+.topbar-right{
+  display:flex;align-items:center;gap:10px;
+}
 .topbar-badge{
-  background:rgba(203,108,230,0.15);color:var(--mg);
-  font-size:10px;font-weight:700;padding:4px 10px;
-  border-radius:20px;border:1px solid rgba(203,108,230,0.3);
+  background:var(--hertz-yellow);
+  color:var(--hertz-black);
+  font-size:10px;font-weight:700;padding:3px 10px;
+  border-radius:3px;letter-spacing:0.5px;text-transform:uppercase;
 }
-
+ 
 /* ── SCREENS ── */
-.screen{display:none;flex-direction:column;min-height:calc(100vh - 58px);}
+.screen{display:none;flex-direction:column;min-height:calc(100vh - 61px);}
 .screen.active{display:flex;}
-
+ 
 /* ── PROGRESS BAR TOP ── */
-.progress-top{height:3px;background:var(--border);position:relative;}
+.progress-top{height:3px;background:var(--hertz-mid);position:relative;}
 .progress-top-fill{
   height:100%;
-  background:linear-gradient(90deg,var(--pu),var(--mg));
+  background:var(--hertz-yellow);
   transition:width 0.4s ease;
 }
-
+ 
 /* ── HERO BANNER ── */
 .hero{
-  background:var(--navy);
-  padding:24px 20px 28px;
+  background:var(--hertz-black);
+  padding:22px 20px 26px;
   display:flex;flex-direction:column;gap:6px;
+  position:relative;overflow:hidden;
+}
+.hero::after{
+  content:'';
+  position:absolute;bottom:0;left:0;right:0;
+  height:3px;background:var(--hertz-yellow);
 }
 .hero-eyebrow{
-  font-size:11px;font-weight:600;color:var(--mg);
-  text-transform:uppercase;letter-spacing:1px;
+  font-size:11px;font-weight:700;color:var(--hertz-yellow);
+  text-transform:uppercase;letter-spacing:1.5px;
 }
 .hero-title{
-  font-family:'Poppins',sans-serif;font-size:22px;font-weight:700;
-  color:var(--white);line-height:1.2;
+  font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:800;
+  color:var(--white);line-height:1.1;letter-spacing:0.5px;
 }
-.hero-sub{font-size:13px;color:rgba(255,255,255,0.55);margin-top:2px;}
-
+.hero-sub{font-size:13px;color:rgba(255,255,255,0.55);margin-top:3px;line-height:1.5;}
+ 
 /* ── CAR PILL ── */
 .car-pill{
-  background:rgba(203,108,230,0.12);
-  border:1px solid rgba(203,108,230,0.25);
-  border-radius:12px;
-  margin:0 20px;
-  padding:14px 16px;
+  background:var(--hertz-charcoal);
+  border-bottom:2px solid var(--hertz-yellow);
+  margin:0;
+  padding:14px 20px;
   display:flex;align-items:center;gap:14px;
-  margin-top:-12px;
-  position:relative;z-index:2;
 }
 .car-icon{
-  width:48px;height:48px;background:var(--navy);border-radius:10px;
-  display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;
+  width:46px;height:46px;background:var(--hertz-mid);border-radius:8px;
+  display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;
 }
-.car-info{}
-.car-name{font-family:'Poppins',sans-serif;font-size:15px;font-weight:600;color:var(--white);}
+.car-name{font-family:'Barlow Condensed',sans-serif;font-size:17px;font-weight:700;color:var(--white);letter-spacing:0.3px;}
 .car-plate{
-  display:inline-block;background:var(--white);color:var(--navy);
-  font-size:11px;font-weight:800;padding:2px 8px;border-radius:4px;
-  letter-spacing:2px;margin-top:3px;
+  display:inline-block;background:var(--hertz-yellow);color:var(--hertz-black);
+  font-size:11px;font-weight:800;padding:2px 8px;border-radius:3px;
+  letter-spacing:2px;margin-top:4px;
 }
-
+ 
 /* ── BODY ── */
-.body{padding:20px;display:flex;flex-direction:column;gap:16px;flex:1;}
-
+.body{padding:16px;display:flex;flex-direction:column;gap:14px;flex:1;}
+ 
 /* ── CARD ── */
 .card{
-  background:var(--white);border-radius:14px;
-  box-shadow:0 1px 6px rgba(13,27,42,0.06);
+  background:var(--white);border-radius:6px;
+  box-shadow:0 1px 4px rgba(0,0,0,0.08);
   overflow:hidden;
+  border:1px solid var(--hertz-border);
 }
 .card-head{
-  padding:14px 16px 0;
-  font-size:11px;font-weight:700;color:var(--slate);
-  text-transform:uppercase;letter-spacing:0.6px;
-  display:flex;align-items:center;gap:7px;
+  padding:12px 16px 0;
+  font-size:10px;font-weight:700;color:var(--hertz-steel);
+  text-transform:uppercase;letter-spacing:1px;
+  display:flex;align-items:center;gap:8px;
+  border-bottom:0;
 }
-.card-dot{width:7px;height:7px;border-radius:50%;background:var(--mg);}
-.card-body{padding:12px 16px 16px;}
-
+.card-accent{width:14px;height:3px;border-radius:1px;background:var(--hertz-yellow);}
+.card-body{padding:10px 16px 16px;}
+ 
 /* ── INFO ROWS ── */
 .info-row{
   display:flex;justify-content:space-between;align-items:center;
-  padding:9px 0;border-bottom:1px solid var(--border);font-size:13px;
+  padding:9px 0;border-bottom:1px solid var(--hertz-border);font-size:13px;
 }
 .info-row:last-child{border-bottom:none;}
-.info-label{color:var(--slate);}
-.info-val{font-weight:600;color:var(--navy);}
-
+.info-label{color:var(--hertz-steel);}
+.info-val{font-weight:600;color:var(--hertz-black);}
+ 
 /* ── PHOTO GRID ── */
 .photo-grid{
   display:grid;grid-template-columns:1fr 1fr;gap:10px;
   padding:12px 16px 16px;
 }
 .photo-zone{
-  aspect-ratio:1;border:2px dashed var(--border);border-radius:12px;
-  background:var(--cloud);display:flex;flex-direction:column;
+  aspect-ratio:1;border:2px dashed var(--hertz-border);border-radius:6px;
+  background:var(--hertz-mist);display:flex;flex-direction:column;
   align-items:center;justify-content:center;gap:5px;
   cursor:pointer;transition:all 0.2s;
-  font-size:11px;color:var(--slate);font-weight:600;text-align:center;padding:8px;
+  font-size:11px;color:var(--hertz-steel);font-weight:600;text-align:center;padding:8px;
 }
 .photo-zone:active{transform:scale(0.97);}
 .photo-zone.done{
   border-style:solid;border-color:var(--green);
   background:#F0FDF4;color:var(--green);position:relative;
 }
-.photo-zone-icon{font-size:26px;}
+.photo-zone-icon{font-size:24px;}
 .photo-check{
   position:absolute;top:6px;right:6px;
   width:18px;height:18px;background:var(--green);border-radius:50%;
@@ -154,211 +177,231 @@ body{
 .photo-progress{
   margin:0 16px 4px;display:flex;align-items:center;gap:10px;
 }
-.prog-bar{flex:1;height:5px;background:var(--border);border-radius:3px;overflow:hidden;}
-.prog-fill{height:100%;background:linear-gradient(90deg,var(--pu),var(--mg));border-radius:3px;transition:width 0.3s;}
-.prog-label{font-size:11px;color:var(--slate);font-weight:600;white-space:nowrap;}
-
+.prog-bar{flex:1;height:4px;background:var(--hertz-border);border-radius:2px;overflow:hidden;}
+.prog-fill{height:100%;background:var(--hertz-yellow);border-radius:2px;transition:width 0.3s;}
+.prog-label{font-size:11px;color:var(--hertz-steel);font-weight:600;white-space:nowrap;}
+ 
 /* ── DAMAGE MAP ── */
 .map-wrap{
   margin:12px 16px 16px;position:relative;
-  background:var(--cloud);border-radius:12px;
+  background:var(--hertz-mist);border-radius:6px;border:1px solid var(--hertz-border);
   display:flex;align-items:center;justify-content:center;
-  padding:20px;min-height:240px;
-  cursor:crosshair;
+  padding:20px;min-height:240px;cursor:crosshair;
 }
 .map-svg{width:160px;}
 .dmg-dot{
   position:absolute;width:22px;height:22px;border-radius:50%;
   display:flex;align-items:center;justify-content:center;
   font-size:10px;font-weight:800;color:white;border:2px solid white;
-  box-shadow:0 2px 6px rgba(0,0,0,0.2);
+  box-shadow:0 2px 6px rgba(0,0,0,0.25);
   animation:pop 0.25s ease;pointer-events:none;
 }
 @keyframes pop{0%{transform:scale(0);}70%{transform:scale(1.2);}100%{transform:scale(1);}}
-.dot-scratch{background:var(--yellow);}
+.dot-scratch{background:var(--orange);}
 .dot-dent{background:var(--red);}
-
+ 
 .dmg-type-row{display:flex;gap:8px;padding:0 16px 14px;}
 .dmg-btn{
-  flex:1;padding:9px 6px;border-radius:10px;border:1.5px solid var(--border);
-  background:white;font-size:12px;font-weight:600;color:var(--slate);
+  flex:1;padding:9px 6px;border-radius:4px;border:1.5px solid var(--hertz-border);
+  background:white;font-size:12px;font-weight:600;color:var(--hertz-steel);
   display:flex;align-items:center;justify-content:center;gap:6px;cursor:pointer;
   transition:all 0.2s;
 }
-.dmg-btn.sel{border-color:var(--mg);background:rgba(203,108,230,0.07);color:var(--navy);}
+.dmg-btn.sel{border-color:var(--hertz-black);background:var(--hertz-black);color:var(--hertz-yellow);}
 .dmg-color{width:10px;height:10px;border-radius:50%;}
-
+ 
 .dmg-list{padding:0 16px 16px;display:flex;flex-direction:column;gap:6px;}
 .dmg-item{
   display:flex;align-items:center;gap:8px;padding:8px 10px;
-  background:var(--cloud);border-radius:8px;font-size:12px;color:var(--navy);
+  background:var(--hertz-mist);border-radius:4px;font-size:12px;color:var(--hertz-black);
+  border-left:3px solid var(--hertz-yellow);
 }
 .dmg-badge{
-  font-size:10px;font-weight:700;padding:2px 7px;border-radius:10px;white-space:nowrap;
+  font-size:10px;font-weight:700;padding:2px 7px;border-radius:3px;white-space:nowrap;
 }
 .b-scratch{background:#FEF3C7;color:#92400E;}
 .b-dent{background:#FEE2E2;color:#991B1B;}
-
+ 
 /* ── AI BOX ── */
 .ai-box{
   margin:0 16px 16px;padding:14px;
-  background:rgba(131,58,224,0.07);
-  border:1.5px solid rgba(203,108,230,0.25);
-  border-radius:12px;display:flex;gap:12px;
+  background:#FFFAE6;
+  border:1.5px solid var(--hertz-yellow);
+  border-radius:6px;display:flex;gap:12px;
 }
 .ai-icon-wrap{
-  width:36px;height:36px;border-radius:9px;
-  background:linear-gradient(135deg,var(--pu),var(--mg));
+  width:36px;height:36px;border-radius:6px;
+  background:var(--hertz-black);
   display:flex;align-items:center;justify-content:center;
   font-size:18px;flex-shrink:0;
 }
-.ai-label{font-size:10px;font-weight:700;color:var(--pu);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:4px;}
-.ai-text{font-size:13px;color:var(--navy);line-height:1.5;}
+.ai-label{font-size:10px;font-weight:700;color:var(--hertz-yellow-dark);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:4px;}
+.ai-text{font-size:13px;color:var(--hertz-black);line-height:1.5;}
 .ai-spinner{
-  width:22px;height:22px;border:2.5px solid rgba(203,108,230,0.3);
-  border-top-color:var(--mg);border-radius:50%;
-  animation:spin 0.8s linear infinite;
+  width:22px;height:22px;border:2.5px solid rgba(245,196,0,0.3);
+  border-top-color:var(--hertz-yellow);border-radius:50%;
+  animation:spin 0.8s linear infinite;flex-shrink:0;
 }
 @keyframes spin{to{transform:rotate(360deg);}}
-
+ 
 /* ── FINDINGS ── */
 .finding{
   display:flex;align-items:flex-start;gap:7px;
-  background:white;border-radius:7px;padding:7px 9px;
-  margin-top:6px;font-size:12px;color:var(--navy);
+  background:white;border-radius:4px;padding:7px 9px;
+  margin-top:6px;font-size:12px;color:var(--hertz-black);
+  border-left:3px solid var(--hertz-yellow);
 }
-
+ 
 /* ── SIGNATURE PAD ── */
 .sig-area{
   margin:0 16px 16px;height:90px;
-  background:var(--cloud);border:2px dashed var(--border);
-  border-radius:12px;display:flex;align-items:center;justify-content:center;
+  background:var(--hertz-mist);border:2px dashed var(--hertz-border);
+  border-radius:6px;display:flex;align-items:center;justify-content:center;
 }
 .sig-preview{
-  font-family:'Poppins',sans-serif;font-size:26px;font-style:italic;
-  color:var(--navy);opacity:0.5;
+  font-family:'Barlow Condensed',sans-serif;font-size:28px;font-style:italic;
+  color:var(--hertz-black);opacity:0.4;font-weight:600;
 }
 .sig-meta{
-  padding:0 16px 14px;font-size:11px;color:var(--slate);
+  padding:0 16px 14px;font-size:11px;color:var(--hertz-steel);
   display:flex;align-items:center;gap:5px;
 }
-
+ 
 /* ── COMPARISON ── */
 .compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:12px 16px 16px;}
-.compare-card{border-radius:10px;overflow:hidden;border:1.5px solid var(--border);}
+.compare-card{border-radius:4px;overflow:hidden;border:1.5px solid var(--hertz-border);}
 .compare-head{
   padding:7px 10px;font-size:10px;font-weight:700;
   text-transform:uppercase;letter-spacing:0.5px;
   display:flex;align-items:center;gap:5px;
 }
 .head-in{background:#F0FDF4;color:#166534;}
-.head-out{background:#FFF7ED;color:#9A3412;}
+.head-out{background:#FEF2F2;color:#9A3412;}
 .compare-img{
   width:100%;aspect-ratio:4/3;
   display:flex;align-items:center;justify-content:center;font-size:36px;
-  background:var(--cloud);
+  background:var(--hertz-mist);
 }
 .compare-img.damage{background:#FEF2F2;}
-.compare-sub{padding:6px 10px;font-size:10px;font-weight:500;}
+.compare-sub{padding:6px 10px;font-size:10px;font-weight:600;}
 .compare-sub.ok{color:var(--green);}
 .compare-sub.bad{color:var(--red);}
-
+ 
 .alert-strip{
   margin:0 16px 14px;padding:12px 14px;
-  background:#FEF2F2;border:1.5px solid #FECACA;border-radius:10px;
+  background:#FEF2F2;border:1.5px solid #FECACA;border-radius:6px;
   display:flex;align-items:center;gap:10px;
-  font-size:13px;color:#991B1B;font-weight:500;
+  font-size:13px;color:#991B1B;font-weight:600;
+  border-left:4px solid var(--red);
 }
-
+ 
 /* ── SUMMARY STATS ── */
 .stats-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;padding:12px 16px 16px;}
 .stat{
-  background:var(--cloud);border-radius:10px;
-  padding:12px 8px;text-align:center;
+  background:var(--hertz-mist);border-radius:4px;
+  padding:12px 8px;text-align:center;border:1px solid var(--hertz-border);
 }
 .stat-num{
-  font-family:'Poppins',sans-serif;font-size:20px;font-weight:700;
-  color:var(--navy);line-height:1;
+  font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:800;
+  color:var(--hertz-black);line-height:1;
 }
-.stat-num.hi{color:var(--mg);}
-.stat-lbl{font-size:10px;color:var(--slate);margin-top:3px;line-height:1.3;}
-
+.stat-num.hi{color:var(--red);}
+.stat-num.ok{color:var(--green-dark);}
+.stat-lbl{font-size:10px;color:var(--hertz-steel);margin-top:3px;line-height:1.3;font-weight:500;}
+ 
 /* ── SUCCESS BANNER ── */
 .success-banner{
-  background:linear-gradient(135deg,#166534,#15803d);
-  margin:0 16px 16px;border-radius:12px;
+  background:var(--hertz-black);
+  margin:0 16px 16px;border-radius:6px;
   padding:16px;display:flex;gap:12px;align-items:flex-start;
+  border-left:4px solid var(--hertz-yellow);
 }
 .success-icon{font-size:28px;}
-.success-title{font-family:'Poppins',sans-serif;font-size:15px;font-weight:700;color:white;}
-.success-sub{font-size:12px;color:rgba(255,255,255,0.75);margin-top:2px;line-height:1.4;}
-
+.success-title{font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:700;color:var(--hertz-yellow);letter-spacing:0.5px;}
+.success-sub{font-size:12px;color:rgba(255,255,255,0.65);margin-top:2px;line-height:1.4;}
+ 
 /* ── BOTTOM BTN ── */
 .bottom-bar{
-  padding:16px 20px;background:white;
-  border-top:1px solid var(--border);
+  padding:14px 16px;background:white;
+  border-top:1px solid var(--hertz-border);
   position:sticky;bottom:0;z-index:40;
   display:flex;gap:10px;
 }
 .btn{
-  flex:1;padding:14px;border-radius:12px;
+  flex:1;padding:14px;border-radius:4px;
   font-size:14px;font-weight:700;font-family:'Inter',sans-serif;
-  cursor:pointer;border:none;transition:all 0.2s;
+  cursor:pointer;border:none;transition:all 0.15s;letter-spacing:0.3px;
 }
 .btn:active{transform:scale(0.98);}
 .btn-primary{
-  background:linear-gradient(135deg,var(--pu),var(--mg));
-  color:white;box-shadow:0 4px 12px rgba(131,58,224,0.28);
+  background:var(--hertz-yellow);
+  color:var(--hertz-black);
+  box-shadow:0 2px 8px rgba(245,196,0,0.3);
 }
+.btn-primary:hover{background:var(--hertz-yellow-dark);}
 .btn-ghost{
-  background:var(--cloud);color:var(--slate);
-  border:1.5px solid var(--border);flex:0 0 auto;width:50px;
+  background:var(--hertz-mist);color:var(--hertz-steel);
+  border:1.5px solid var(--hertz-border);flex:0 0 auto;width:50px;
   display:flex;align-items:center;justify-content:center;font-size:18px;
 }
 .btn-success{background:var(--green);color:white;}
-.btn-outline{background:white;color:var(--slate);border:1.5px solid var(--border);}
-
+.btn-outline{background:white;color:var(--hertz-steel);border:1.5px solid var(--hertz-border);}
+ 
 /* ── STATUS PILL ── */
-.pill-ok{display:inline-flex;align-items:center;gap:4px;background:#F0FDF4;color:#166534;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;border:1px solid #BBF7D0;}
-.pill-warn{display:inline-flex;align-items:center;gap:4px;background:#FEF2F2;color:#991B1B;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;border:1px solid #FECACA;}
-
+.pill-ok{display:inline-flex;align-items:center;gap:4px;background:#F0FDF4;color:#166534;font-size:11px;font-weight:700;padding:3px 10px;border-radius:3px;border:1px solid #BBF7D0;}
+.pill-warn{display:inline-flex;align-items:center;gap:4px;background:#FEF2F2;color:#991B1B;font-size:11px;font-weight:700;padding:3px 10px;border-radius:3px;border:1px solid #FECACA;}
+.pill-yellow{display:inline-flex;align-items:center;gap:4px;background:var(--yellow-soft);color:var(--hertz-yellow-dark);font-size:11px;font-weight:700;padding:3px 10px;border-radius:3px;border:1px solid var(--hertz-yellow);}
+ 
 /* ── TIMELINE ── */
 .timeline{padding:4px 16px 16px;}
 .tl-item{display:flex;gap:12px;padding-bottom:16px;position:relative;}
 .tl-item:last-child{padding-bottom:0;}
 .tl-dot{
   width:32px;height:32px;border-radius:50%;
-  background:linear-gradient(135deg,var(--pu),var(--mg));
+  background:var(--hertz-black);border:2px solid var(--hertz-yellow);
   display:flex;align-items:center;justify-content:center;
-  font-size:14px;flex-shrink:0;position:relative;z-index:1;
+  font-size:13px;flex-shrink:0;position:relative;z-index:1;
 }
 .tl-line{
   position:absolute;left:15px;top:32px;bottom:0;
-  width:2px;background:var(--border);
+  width:2px;background:var(--hertz-border);
 }
-.tl-title{font-size:13px;font-weight:600;color:var(--navy);padding-top:5px;}
-.tl-meta{font-size:11px;color:var(--slate);margin-top:2px;}
+.tl-title{font-size:13px;font-weight:600;color:var(--hertz-black);padding-top:5px;}
+.tl-meta{font-size:11px;color:var(--hertz-steel);margin-top:2px;}
+ 
+/* ── DIVIDER ── */
+.section-divider{
+  height:1px;background:var(--hertz-border);
+  margin:0 16px;
+}
+ 
+/* ── YELLOW ACCENT LINE ── */
+.yellow-rule{
+  height:2px;background:var(--hertz-yellow);
+  margin:0;
+}
 </style>
 </head>
 <body>
-
+ 
 <div class="topbar">
-  <div>
-    <div class="topbar-logo">Snnapi</div>
-    <div class="topbar-sub">by HenkanCX</div>
+  <div class="topbar-logo">
+    <div class="topbar-logo-text">Hertz</div>
   </div>
-  <div class="topbar-badge">Demo</div>
+  <div class="topbar-right">
+    <div class="topbar-badge">Inspección</div>
+  </div>
 </div>
-
+ 
 <!-- ═══════════════════════════════
      S1 — BIENVENIDA / CONTRATO
 ════════════════════════════════ -->
 <div class="screen active" id="s1">
   <div class="progress-top"><div class="progress-top-fill" style="width:20%"></div></div>
   <div class="hero">
-    <div class="hero-eyebrow">Inspección de check-in</div>
-    <div class="hero-title">Hola, Carlos 👋</div>
-    <div class="hero-sub">Antes de recibir tu vehículo, completa esta inspección. Solo toma 3 minutos.</div>
+    <div class="hero-eyebrow">Check-in · Retiro de vehículo</div>
+    <div class="hero-title">Bienvenido, Carlos</div>
+    <div class="hero-sub">Inspecciona el vehículo antes del retiro. El proceso toma menos de 3 minutos.</div>
   </div>
   <div class="car-pill">
     <div class="car-icon">🚗</div>
@@ -369,7 +412,7 @@ body{
   </div>
   <div class="body">
     <div class="card">
-      <div class="card-head"><div class="card-dot"></div>Detalles del contrato</div>
+      <div class="card-head"><div class="card-accent"></div>Detalles del contrato</div>
       <div class="card-body">
         <div class="info-row"><span class="info-label">Contrato</span><span class="info-val">RNT-2024-00847</span></div>
         <div class="info-row"><span class="info-label">Retiro</span><span class="info-val">17 jul · 09:00 AM</span></div>
@@ -380,15 +423,15 @@ body{
         <div class="info-row"><span class="info-label">Estado</span><span class="pill-ok">✓ Confirmado</span></div>
       </div>
     </div>
-    <div style="font-size:12px;color:var(--slate);text-align:center;line-height:1.6;padding:4px 8px;">
-      Al completar esta inspección confirmas haber revisado el estado del vehículo.
+    <div style="font-size:12px;color:var(--hertz-steel);text-align:center;line-height:1.6;padding:4px 8px;">
+      Al completar esta inspección confirmas haber revisado el estado del vehículo y aceptas los términos del contrato.
     </div>
   </div>
   <div class="bottom-bar">
     <button class="btn btn-primary" onclick="go(2)">Iniciar inspección →</button>
   </div>
 </div>
-
+ 
 <!-- ═══════════════════════════════
      S2 — FOTOS
 ════════════════════════════════ -->
@@ -396,12 +439,12 @@ body{
   <div class="progress-top"><div class="progress-top-fill" style="width:40%"></div></div>
   <div class="hero">
     <div class="hero-eyebrow">Paso 1 de 2</div>
-    <div class="hero-title">Toma las fotos 📷</div>
-    <div class="hero-sub">Fotografía el vehículo en las 8 zonas indicadas.</div>
+    <div class="hero-title">Fotografía el vehículo</div>
+    <div class="hero-sub">Captura las 8 zonas indicadas para registrar el estado actual.</div>
   </div>
-  <div class="body" style="padding-top:16px;">
+  <div class="body" style="padding-top:14px;">
     <div class="card">
-      <div class="card-head"><div class="card-dot"></div>Zonas a fotografiar</div>
+      <div class="card-head"><div class="card-accent"></div>Zonas requeridas</div>
       <div class="photo-progress" style="padding-top:12px;">
         <div class="prog-bar"><div class="prog-fill" id="ph-fill" style="width:0%"></div></div>
         <div class="prog-label" id="ph-count">0 / 8</div>
@@ -423,7 +466,7 @@ body{
     <button class="btn btn-primary" onclick="go(3)">Continuar →</button>
   </div>
 </div>
-
+ 
 <!-- ═══════════════════════════════
      S3 — MAPA DE DAÑOS
 ════════════════════════════════ -->
@@ -431,42 +474,42 @@ body{
   <div class="progress-top"><div class="progress-top-fill" style="width:60%"></div></div>
   <div class="hero">
     <div class="hero-eyebrow">Paso 2 de 2</div>
-    <div class="hero-title">Marca daños visibles</div>
-    <div class="hero-sub">Toca el mapa para señalar rayones o abolladuras existentes.</div>
+    <div class="hero-title">Registra daños visibles</div>
+    <div class="hero-sub">Toca el diagrama para marcar rayones o abolladuras preexistentes.</div>
   </div>
-  <div class="body" style="padding-top:16px;">
+  <div class="body" style="padding-top:14px;">
     <div class="card">
-      <div class="card-head"><div class="card-dot"></div>Tipo de daño</div>
+      <div class="card-head"><div class="card-accent"></div>Tipo de daño</div>
       <div class="dmg-type-row">
         <button class="dmg-btn sel" id="btn-scratch" onclick="selDmg('scratch',this)">
-          <div class="dmg-color" style="background:var(--yellow)"></div>Rayón
+          <div class="dmg-color" style="background:var(--orange)"></div>Rayón
         </button>
         <button class="dmg-btn" id="btn-dent" onclick="selDmg('dent',this)">
           <div class="dmg-color" style="background:var(--red)"></div>Abolladura
         </button>
       </div>
-      <div class="card-head" style="padding-top:0;"><div class="card-dot"></div>Mapa del vehículo</div>
+      <div class="card-head" style="padding-top:0;margin-bottom:4px;"><div class="card-accent"></div>Diagrama del vehículo</div>
       <div class="map-wrap" id="car-map" onclick="addDot(event,this)">
         <svg class="map-svg" viewBox="0 0 200 360" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="40" y="60" width="120" height="240" rx="20" fill="#DDE1E7" stroke="#9CA3AF" stroke-width="2"/>
-          <rect x="55" y="120" width="90" height="120" rx="8" fill="#B8BFC8" stroke="#9CA3AF" stroke-width="1.5"/>
-          <rect x="58" y="90" width="84" height="36" rx="4" fill="#93C5FD" stroke="#9CA3AF" stroke-width="1.5" opacity="0.7"/>
-          <rect x="58" y="234" width="84" height="36" rx="4" fill="#93C5FD" stroke="#9CA3AF" stroke-width="1.5" opacity="0.7"/>
-          <ellipse cx="42" cy="100" rx="16" ry="22" fill="#374151" stroke="#1F2937" stroke-width="1.5"/>
-          <ellipse cx="158" cy="100" rx="16" ry="22" fill="#374151" stroke="#1F2937" stroke-width="1.5"/>
-          <ellipse cx="42" cy="260" rx="16" ry="22" fill="#374151" stroke="#1F2937" stroke-width="1.5"/>
-          <ellipse cx="158" cy="260" rx="16" ry="22" fill="#374151" stroke="#1F2937" stroke-width="1.5"/>
-          <line x1="40" y1="180" x2="160" y2="180" stroke="#9CA3AF" stroke-width="1" stroke-dasharray="4,3"/>
-          <rect x="55" y="52" width="90" height="12" rx="4" fill="#9CA3AF"/>
-          <rect x="55" y="296" width="90" height="12" rx="4" fill="#9CA3AF"/>
-          <rect x="50" y="60" width="24" height="14" rx="3" fill="#FCD34D" opacity="0.8"/>
-          <rect x="126" y="60" width="24" height="14" rx="3" fill="#FCD34D" opacity="0.8"/>
-          <rect x="50" y="286" width="24" height="14" rx="3" fill="#FCA5A5" opacity="0.8"/>
-          <rect x="126" y="286" width="24" height="14" rx="3" fill="#FCA5A5" opacity="0.8"/>
+          <rect x="40" y="60" width="120" height="240" rx="20" fill="#E8E8E8" stroke="#BDBDBD" stroke-width="2"/>
+          <rect x="55" y="120" width="90" height="120" rx="8" fill="#D0D0D0" stroke="#BDBDBD" stroke-width="1.5"/>
+          <rect x="58" y="90" width="84" height="36" rx="4" fill="#AED6F1" stroke="#BDBDBD" stroke-width="1.5" opacity="0.8"/>
+          <rect x="58" y="234" width="84" height="36" rx="4" fill="#AED6F1" stroke="#BDBDBD" stroke-width="1.5" opacity="0.8"/>
+          <ellipse cx="42" cy="100" rx="16" ry="22" fill="#2E2E2E" stroke="#0A0A0A" stroke-width="1.5"/>
+          <ellipse cx="158" cy="100" rx="16" ry="22" fill="#2E2E2E" stroke="#0A0A0A" stroke-width="1.5"/>
+          <ellipse cx="42" cy="260" rx="16" ry="22" fill="#2E2E2E" stroke="#0A0A0A" stroke-width="1.5"/>
+          <ellipse cx="158" cy="260" rx="16" ry="22" fill="#2E2E2E" stroke="#0A0A0A" stroke-width="1.5"/>
+          <line x1="40" y1="180" x2="160" y2="180" stroke="#BDBDBD" stroke-width="1" stroke-dasharray="4,3"/>
+          <rect x="55" y="52" width="90" height="12" rx="3" fill="#BDBDBD"/>
+          <rect x="55" y="296" width="90" height="12" rx="3" fill="#BDBDBD"/>
+          <rect x="50" y="60" width="24" height="14" rx="3" fill="#F5C400" opacity="0.9"/>
+          <rect x="126" y="60" width="24" height="14" rx="3" fill="#F5C400" opacity="0.9"/>
+          <rect x="50" y="286" width="24" height="14" rx="3" fill="#FCA5A5" opacity="0.9"/>
+          <rect x="126" y="286" width="24" height="14" rx="3" fill="#FCA5A5" opacity="0.9"/>
         </svg>
       </div>
       <div class="dmg-list" id="dmg-list">
-        <div style="font-size:12px;color:var(--slate);text-align:center;padding:6px 0;">Sin daños marcados aún</div>
+        <div style="font-size:12px;color:var(--hertz-steel);text-align:center;padding:6px 0;">Sin daños marcados</div>
       </div>
     </div>
   </div>
@@ -475,7 +518,7 @@ body{
     <button class="btn btn-primary" onclick="goAI()">Analizar con IA →</button>
   </div>
 </div>
-
+ 
 <!-- ═══════════════════════════════
      S4 — ANÁLISIS IA
 ════════════════════════════════ -->
@@ -483,40 +526,40 @@ body{
   <div class="progress-top"><div class="progress-top-fill" style="width:75%"></div></div>
   <div class="hero">
     <div class="hero-eyebrow">Análisis automático</div>
-    <div class="hero-title">IA revisando fotos 🤖</div>
-    <div class="hero-sub">Detectamos daños en tus imágenes con computer vision.</div>
+    <div class="hero-title">Verificando con IA</div>
+    <div class="hero-sub">Nuestro sistema de visión artificial revisa las fotografías capturadas.</div>
   </div>
-  <div class="body" style="padding-top:16px;">
+  <div class="body" style="padding-top:14px;">
     <div class="card" id="ai-loading-card">
-      <div class="card-head"><div class="card-dot"></div>Procesando</div>
+      <div class="card-head"><div class="card-accent"></div>Procesando imágenes</div>
       <div class="ai-box" style="margin:12px 16px 16px;">
         <div class="ai-spinner"></div>
         <div>
-          <div class="ai-label">IA Snnapi</div>
+          <div class="ai-label">Hertz AI · Inspección</div>
           <div class="ai-text">Analizando 8 fotografías...</div>
         </div>
       </div>
     </div>
     <div class="card" id="ai-result-card" style="display:none;">
-      <div class="card-head"><div class="card-dot"></div>Resultado del análisis</div>
+      <div class="card-head"><div class="card-accent"></div>Resultado del análisis</div>
       <div class="ai-box" style="margin:12px 16px 8px;">
         <div class="ai-icon-wrap">🤖</div>
         <div>
-          <div class="ai-label">IA Snnapi</div>
+          <div class="ai-label">Hertz AI · Inspección</div>
           <div class="ai-text">Se detectaron <strong>2 daños preexistentes</strong> en el vehículo.</div>
-          <div class="finding">⚡ Rayón leve — puerta delantera izq.</div>
-          <div class="finding">⚡ Abolladura — paragolpes trasero</div>
+          <div class="finding">Rayón leve — puerta delantera izquierda</div>
+          <div class="finding">Abolladura — paragolpes trasero</div>
         </div>
       </div>
-      <div style="padding:0 16px 14px;font-size:12px;color:var(--slate);line-height:1.5;">
-        Estos daños quedan registrados y <strong>no serán cobrados</strong> al devolver el auto.
+      <div style="padding:0 16px 14px;font-size:12px;color:var(--hertz-steel);line-height:1.5;">
+        Estos daños quedan registrados y <strong>no serán cobrados</strong> al devolver el vehículo.
       </div>
     </div>
-
+ 
     <div class="card" id="sig-card" style="display:none;">
-      <div class="card-head"><div class="card-dot"></div>Firma digital</div>
-      <div style="padding:10px 16px 8px;font-size:13px;color:var(--slate);">
-        Al firmar confirmas que revisaste el vehículo y aceptas el estado documentado.
+      <div class="card-head"><div class="card-accent"></div>Firma digital</div>
+      <div style="padding:10px 16px 8px;font-size:13px;color:var(--hertz-steel);">
+        Al firmar confirmas que revisaste el vehículo y aceptas el estado documentado en este informe.
       </div>
       <div class="sig-area">
         <div class="sig-preview">Carlos M.</div>
@@ -529,58 +572,59 @@ body{
     <button class="btn btn-primary" id="btn-firmar" style="display:none;" onclick="go(5)">Confirmar y firmar ✓</button>
   </div>
 </div>
-
+ 
 <!-- ═══════════════════════════════
      S5 — CHECK-IN COMPLETO
 ════════════════════════════════ -->
 <div class="screen" id="s5">
   <div class="progress-top"><div class="progress-top-fill" style="width:100%"></div></div>
-  <div class="hero" style="background:linear-gradient(135deg,#166534,#15803d);">
-    <div class="hero-eyebrow" style="color:rgba(255,255,255,0.7);">Check-in completado</div>
-    <div class="hero-title">¡Listo, Carlos! 🎉</div>
-    <div class="hero-sub">Tu inspección fue guardada y firmada. Disfruta tu viaje.</div>
+  <div class="hero">
+    <div class="hero-eyebrow">Check-in completado</div>
+    <div class="hero-title">¡Todo listo, Carlos!</div>
+    <div class="hero-sub">Tu inspección fue registrada y firmada. Que disfrutes tu viaje.</div>
   </div>
-  <div class="body" style="padding-top:20px;">
+  <div class="yellow-rule"></div>
+  <div class="body" style="padding-top:16px;">
     <div class="card">
       <div class="stats-row">
-        <div class="stat"><div class="stat-num">8</div><div class="stat-lbl">Fotos capturadas</div></div>
+        <div class="stat"><div class="stat-num ok">8</div><div class="stat-lbl">Fotos capturadas</div></div>
         <div class="stat"><div class="stat-num hi">2</div><div class="stat-lbl">Daños preexistentes</div></div>
-        <div class="stat"><div class="stat-num">✓</div><div class="stat-lbl">Firmado digital</div></div>
+        <div class="stat"><div class="stat-num ok">✓</div><div class="stat-lbl">Firmado digitalmente</div></div>
       </div>
     </div>
     <div class="card">
-      <div class="card-head"><div class="card-dot"></div>Resumen del check-in</div>
+      <div class="card-head"><div class="card-accent"></div>Resumen de inspección</div>
       <div class="card-body">
         <div class="info-row"><span class="info-label">Vehículo</span><span class="info-val">Toyota Corolla · P-748291</span></div>
         <div class="info-row"><span class="info-label">Fecha / hora</span><span class="info-val">17 jul · 09:12 AM</span></div>
         <div class="info-row"><span class="info-label">Km al retiro</span><span class="info-val">34,821 km</span></div>
         <div class="info-row"><span class="info-label">Combustible</span><span class="info-val">100%</span></div>
-        <div class="info-row"><span class="info-label">Daños preexist.</span><span class="pill-warn">2 registrados</span></div>
+        <div class="info-row"><span class="info-label">Daños preexistentes</span><span class="pill-warn">2 registrados</span></div>
         <div class="info-row"><span class="info-label">Estado</span><span class="pill-ok">✓ Firmado</span></div>
       </div>
     </div>
-    <div style="text-align:center;font-size:12px;color:var(--slate);padding:4px 8px;line-height:1.6;">
-      Recibirás el link de check-out por WhatsApp al momento de la devolución.
+    <div style="text-align:center;font-size:12px;color:var(--hertz-steel);padding:4px 8px;line-height:1.6;">
+      Recibirás el enlace de check-out por WhatsApp y email al momento de la devolución.
     </div>
   </div>
   <div class="bottom-bar">
-    <button class="btn btn-success" onclick="go('co1')">Ver flujo de Check-out →</button>
+    <button class="btn btn-primary" onclick="go('co1')">Ver flujo de Check-out →</button>
   </div>
 </div>
-
+ 
 <!-- ═══════════════════════════════
-     CO1 — CHECK-OUT: FOTOS DE DEVOLUCIÓN
+     CO1 — CHECK-OUT: FOTOS
 ════════════════════════════════ -->
 <div class="screen" id="sco1">
   <div class="progress-top"><div class="progress-top-fill" style="width:40%"></div></div>
-  <div class="hero" style="background:#1a3a5c;">
-    <div class="hero-eyebrow">Inspección de check-out</div>
-    <div class="hero-title">Devolviendo el auto 🔍</div>
-    <div class="hero-sub">20 jul · Sucursal Albrook Mall. Fotografía el vehículo en las mismas zonas.</div>
+  <div class="hero" style="background:var(--hertz-charcoal);">
+    <div class="hero-eyebrow">Check-out · Devolución de vehículo</div>
+    <div class="hero-title">Fotografía de devolución</div>
+    <div class="hero-sub">20 jul · Sucursal Albrook Mall. Captura las mismas 8 zonas del check-in.</div>
   </div>
-  <div class="body" style="padding-top:16px;">
+  <div class="body" style="padding-top:14px;">
     <div class="card">
-      <div class="card-head"><div class="card-dot"></div>Fotos de devolución</div>
+      <div class="card-head"><div class="card-accent"></div>Fotos de devolución</div>
       <div class="photo-progress" style="padding-top:12px;">
         <div class="prog-bar"><div class="prog-fill" id="co-fill" style="width:0%"></div></div>
         <div class="prog-label" id="co-count">0 / 8</div>
@@ -601,37 +645,36 @@ body{
     <button class="btn btn-primary" onclick="goCOAI()">Comparar con check-in →</button>
   </div>
 </div>
-
+ 
 <!-- ═══════════════════════════════
      CO2 — COMPARACIÓN IA
 ════════════════════════════════ -->
 <div class="screen" id="sco2">
   <div class="progress-top"><div class="progress-top-fill" style="width:75%"></div></div>
-  <div class="hero" style="background:#1a3a5c;">
+  <div class="hero" style="background:var(--hertz-charcoal);">
     <div class="hero-eyebrow">Análisis comparativo</div>
-    <div class="hero-title">IA comparando fotos 🤖</div>
-    <div class="hero-sub">Comparando check-in vs. check-out automáticamente.</div>
+    <div class="hero-title">Comparando inspecciones</div>
+    <div class="hero-sub">Verificando check-in vs. check-out con visión artificial.</div>
   </div>
-  <div class="body" style="padding-top:16px;">
-
+  <div class="body" style="padding-top:14px;">
     <div class="card" id="co-loading-card">
-      <div class="card-head"><div class="card-dot"></div>Procesando</div>
+      <div class="card-head"><div class="card-accent"></div>Procesando</div>
       <div class="ai-box" style="margin:12px 16px 16px;">
         <div class="ai-spinner"></div>
         <div>
-          <div class="ai-label">IA Snnapi</div>
+          <div class="ai-label">Hertz AI · Inspección</div>
           <div class="ai-text">Comparando 16 fotografías (8 check-in + 8 check-out)...</div>
         </div>
       </div>
     </div>
-
-    <div id="co-results" style="display:none;display:flex;flex-direction:column;gap:16px;">
+ 
+    <div id="co-results" style="display:none;flex-direction:column;gap:14px;">
       <div class="alert-strip">
         <span style="font-size:20px;">⚠️</span>
-        <span><strong>1 daño nuevo detectado</strong> no presente en el check-in.</span>
+        <span><strong>1 daño nuevo detectado</strong> no registrado en el check-in.</span>
       </div>
       <div class="card">
-        <div class="card-head"><div class="card-dot"></div>Comparación visual</div>
+        <div class="card-head"><div class="card-accent"></div>Comparación visual</div>
         <div class="compare-grid">
           <div class="compare-card">
             <div class="compare-head head-in">✅ Check-in</div>
@@ -646,10 +689,10 @@ body{
         </div>
         <div style="padding:0 16px 14px;">
           <div class="ai-box" style="margin:0;">
-            <div class="ai-icon-wrap" style="width:30px;height:30px;border-radius:7px;font-size:14px;">🤖</div>
+            <div class="ai-icon-wrap" style="width:30px;height:30px;border-radius:5px;font-size:14px;">🤖</div>
             <div>
-              <div class="ai-label">IA Snnapi</div>
-              <div class="ai-text" style="font-size:12px;"><strong>Paragolpes trasero izquierdo.</strong> Confianza: 94%. No estaba en check-in firmado.</div>
+              <div class="ai-label">Hertz AI · Inspección</div>
+              <div class="ai-text" style="font-size:12px;"><strong>Paragolpes trasero izquierdo.</strong> Confianza: 94%. Daño no registrado en check-in firmado.</div>
             </div>
           </div>
         </div>
@@ -658,21 +701,22 @@ body{
   </div>
   <div class="bottom-bar">
     <button class="btn btn-primary" id="btn-co-reporte" style="display:none;" onclick="go('co3')">Ver reporte final →</button>
-    <div id="co-waiting" style="flex:1;display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--slate);">Analizando...</div>
+    <div id="co-waiting" style="flex:1;display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--hertz-steel);">Analizando...</div>
   </div>
 </div>
-
+ 
 <!-- ═══════════════════════════════
      CO3 — REPORTE FINAL
 ════════════════════════════════ -->
 <div class="screen" id="sco3">
   <div class="progress-top"><div class="progress-top-fill" style="width:100%"></div></div>
-  <div class="hero" style="background:var(--navy);">
+  <div class="hero" style="background:var(--hertz-black);">
     <div class="hero-eyebrow">Reporte #INS-2024-00847</div>
     <div class="hero-title">Check-out completado</div>
     <div class="hero-sub">Toyota Corolla · P-748291 · Carlos Mendoza Ríos</div>
   </div>
-  <div class="body" style="padding-top:20px;">
+  <div class="yellow-rule"></div>
+  <div class="body" style="padding-top:16px;">
     <div class="card">
       <div class="stats-row">
         <div class="stat"><div class="stat-num">3 días</div><div class="stat-lbl">Duración renta</div></div>
@@ -681,18 +725,18 @@ body{
       </div>
     </div>
     <div class="card">
-      <div class="card-head"><div class="card-dot"></div>Resumen</div>
+      <div class="card-head"><div class="card-accent"></div>Resumen</div>
       <div class="card-body">
         <div class="info-row"><span class="info-label">Check-in</span><span class="info-val">17 jul · 09:12 AM</span></div>
         <div class="info-row"><span class="info-label">Check-out</span><span class="info-val">20 jul · 08:54 AM</span></div>
         <div class="info-row"><span class="info-label">Km inicial / final</span><span class="info-val">34,821 / 35,204</span></div>
         <div class="info-row"><span class="info-label">Combustible</span><span class="info-val pill-warn">3/4 — cargo aplica</span></div>
         <div class="info-row"><span class="info-label">Daño nuevo</span><span class="info-val" style="color:var(--red);font-size:12px;">Rayón paragolpes trasero izq.</span></div>
-        <div class="info-row"><span class="info-label">Cargo</span><span class="pill-warn">Pendiente</span></div>
+        <div class="info-row"><span class="info-label">Cargo</span><span class="pill-warn">Pendiente evaluación</span></div>
       </div>
     </div>
     <div class="card">
-      <div class="card-head"><div class="card-dot"></div>Línea de tiempo</div>
+      <div class="card-head"><div class="card-accent"></div>Línea de tiempo</div>
       <div class="timeline">
         <div class="tl-item">
           <div class="tl-line"></div>
@@ -702,7 +746,7 @@ body{
         <div class="tl-item">
           <div class="tl-line"></div>
           <div class="tl-dot">✓</div>
-          <div><div class="tl-title">Renta en curso</div><div class="tl-meta">3 días · 383 km recorridos</div></div>
+          <div><div class="tl-title">Renta activa</div><div class="tl-meta">3 días · 383 km recorridos</div></div>
         </div>
         <div class="tl-item">
           <div class="tl-line"></div>
@@ -711,32 +755,31 @@ body{
         </div>
         <div class="tl-item">
           <div class="tl-dot">📄</div>
-          <div><div class="tl-title">Reporte generado</div><div class="tl-meta">Enviado por WhatsApp y email</div></div>
+          <div><div class="tl-title">Reporte generado</div><div class="tl-meta">Enviado por WhatsApp y correo electrónico</div></div>
         </div>
       </div>
     </div>
     <div style="display:flex;gap:10px;">
-      <button class="btn btn-outline" style="flex:1;font-size:13px;" onclick="()=>{}">📄 PDF</button>
-      <button class="btn btn-outline" style="flex:1;font-size:13px;" onclick="()=>{}">📧 Email</button>
+      <button class="btn btn-outline" style="flex:1;font-size:13px;" onclick="()=>{}">📄 Descargar PDF</button>
+      <button class="btn btn-outline" style="flex:1;font-size:13px;" onclick="()=>{}">📧 Enviar email</button>
     </div>
   </div>
   <div class="bottom-bar">
     <button class="btn btn-primary" onclick="go(1)">↩ Reiniciar demo</button>
   </div>
 </div>
-
+ 
 <script>
 let phCount=0, coCount=0, dmgType='scratch', dmgIdx=0;
 const dmgNames={scratch:['Rayón — puerta frontal izq.','Rayón — espejo der.','Rayón — capó','Rayón — lateral trasero'],dent:['Abolladura — paragolpes','Abolladura — puerta trasera','Abolladura — aleta frontal']};
 let dmgCounters={scratch:0,dent:0};
-
+ 
 function go(n){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-  const id = typeof n==='string'? 's'+n : 's'+n;
-  const el = document.getElementById(id) || document.getElementById('s'+n);
+  const el = document.getElementById('s'+n);
   if(el){el.classList.add('active');window.scrollTo(0,0);}
 }
-
+ 
 function snap(el,zone){
   if(el.classList.contains('done'))return;
   el.classList.add('done');
@@ -746,7 +789,7 @@ function snap(el,zone){
   document.getElementById('ph-fill').style.width=pct+'%';
   document.getElementById('ph-count').textContent=phCount+' / 8';
 }
-
+ 
 function snapCO(el,zone){
   if(el.classList.contains('done'))return;
   el.classList.add('done');
@@ -756,13 +799,13 @@ function snapCO(el,zone){
   document.getElementById('co-fill').style.width=pct+'%';
   document.getElementById('co-count').textContent=coCount+' / 8';
 }
-
+ 
 function selDmg(type,btn){
   dmgType=type;
   document.querySelectorAll('.dmg-btn').forEach(b=>b.classList.remove('sel'));
   btn.classList.add('sel');
 }
-
+ 
 function addDot(e,container){
   const rect=container.getBoundingClientRect();
   const x=e.clientX-rect.left, y=e.clientY-rect.top;
@@ -782,7 +825,7 @@ function addDot(e,container){
   item.innerHTML=`<span class="dmg-badge ${dmgType==='scratch'?'b-scratch':'b-dent'}">${dmgType==='scratch'?'Rayón':'Abolladura'}</span><span>${name}</span>`;
   list.appendChild(item);
 }
-
+ 
 function goAI(){
   go(4);
   setTimeout(()=>{
@@ -792,7 +835,7 @@ function goAI(){
     document.getElementById('btn-firmar').style.display='block';
   },2000);
 }
-
+ 
 function goCOAI(){
   go('co2');
   setTimeout(()=>{
@@ -806,3 +849,4 @@ function goCOAI(){
 </script>
 </body>
 </html>
+ 
