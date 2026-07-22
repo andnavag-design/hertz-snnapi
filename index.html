@@ -6,9 +6,9 @@
 <title>Hertz — Inspección Vehicular</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap');
- 
+
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
- 
+
 :root{
   --hertz-yellow:#F5C400;
   --hertz-yellow-dark:#C9A000;
@@ -26,7 +26,7 @@
   --red-soft:#FEF2F2;
   --orange:#F59E0B;
 }
- 
+
 body{
   font-family:'Inter',sans-serif;
   background:var(--hertz-mist);
@@ -35,7 +35,7 @@ body{
   max-width:430px;
   margin:0 auto;
 }
- 
+
 /* ── TOPBAR ── */
 .topbar{
   background:var(--hertz-black);
@@ -67,11 +67,11 @@ body{
   font-size:10px;font-weight:700;padding:3px 10px;
   border-radius:3px;letter-spacing:0.5px;text-transform:uppercase;
 }
- 
+
 /* ── SCREENS ── */
 .screen{display:none;flex-direction:column;min-height:calc(100vh - 61px);}
 .screen.active{display:flex;}
- 
+
 /* ── PROGRESS BAR TOP ── */
 .progress-top{height:3px;background:var(--hertz-mid);position:relative;}
 .progress-top-fill{
@@ -79,7 +79,7 @@ body{
   background:var(--hertz-yellow);
   transition:width 0.4s ease;
 }
- 
+
 /* ── HERO BANNER ── */
 .hero{
   background:var(--hertz-black);
@@ -101,7 +101,7 @@ body{
   color:var(--white);line-height:1.1;letter-spacing:0.5px;
 }
 .hero-sub{font-size:13px;color:rgba(255,255,255,0.55);margin-top:3px;line-height:1.5;}
- 
+
 /* ── CAR PILL ── */
 .car-pill{
   background:var(--hertz-charcoal);
@@ -120,10 +120,10 @@ body{
   font-size:11px;font-weight:800;padding:2px 8px;border-radius:3px;
   letter-spacing:2px;margin-top:4px;
 }
- 
+
 /* ── BODY ── */
 .body{padding:16px;display:flex;flex-direction:column;gap:14px;flex:1;}
- 
+
 /* ── CARD ── */
 .card{
   background:var(--white);border-radius:6px;
@@ -140,7 +140,7 @@ body{
 }
 .card-accent{width:14px;height:3px;border-radius:1px;background:var(--hertz-yellow);}
 .card-body{padding:10px 16px 16px;}
- 
+
 /* ── INFO ROWS ── */
 .info-row{
   display:flex;justify-content:space-between;align-items:center;
@@ -149,7 +149,7 @@ body{
 .info-row:last-child{border-bottom:none;}
 .info-label{color:var(--hertz-steel);}
 .info-val{font-weight:600;color:var(--hertz-black);}
- 
+
 /* ── PHOTO GRID ── */
 .photo-grid{
   display:grid;grid-template-columns:1fr 1fr;gap:10px;
@@ -180,7 +180,7 @@ body{
 .prog-bar{flex:1;height:4px;background:var(--hertz-border);border-radius:2px;overflow:hidden;}
 .prog-fill{height:100%;background:var(--hertz-yellow);border-radius:2px;transition:width 0.3s;}
 .prog-label{font-size:11px;color:var(--hertz-steel);font-weight:600;white-space:nowrap;}
- 
+
 /* ── DAMAGE MAP ── */
 .map-wrap{
   margin:12px 16px 16px;position:relative;
@@ -199,7 +199,7 @@ body{
 @keyframes pop{0%{transform:scale(0);}70%{transform:scale(1.2);}100%{transform:scale(1);}}
 .dot-scratch{background:var(--orange);}
 .dot-dent{background:var(--red);}
- 
+
 .dmg-type-row{display:flex;gap:8px;padding:0 16px 14px;}
 .dmg-btn{
   flex:1;padding:9px 6px;border-radius:4px;border:1.5px solid var(--hertz-border);
@@ -209,7 +209,7 @@ body{
 }
 .dmg-btn.sel{border-color:var(--hertz-black);background:var(--hertz-black);color:var(--hertz-yellow);}
 .dmg-color{width:10px;height:10px;border-radius:50%;}
- 
+
 .dmg-list{padding:0 16px 16px;display:flex;flex-direction:column;gap:6px;}
 .dmg-item{
   display:flex;align-items:center;gap:8px;padding:8px 10px;
@@ -221,7 +221,7 @@ body{
 }
 .b-scratch{background:#FEF3C7;color:#92400E;}
 .b-dent{background:#FEE2E2;color:#991B1B;}
- 
+
 /* ── AI BOX ── */
 .ai-box{
   margin:0 16px 16px;padding:14px;
@@ -243,7 +243,7 @@ body{
   animation:spin 0.8s linear infinite;flex-shrink:0;
 }
 @keyframes spin{to{transform:rotate(360deg);}}
- 
+
 /* ── FINDINGS ── */
 .finding{
   display:flex;align-items:flex-start;gap:7px;
@@ -251,7 +251,7 @@ body{
   margin-top:6px;font-size:12px;color:var(--hertz-black);
   border-left:3px solid var(--hertz-yellow);
 }
- 
+
 /* ── SIGNATURE PAD ── */
 .sig-area{
   margin:0 16px 16px;height:90px;
@@ -266,7 +266,7 @@ body{
   padding:0 16px 14px;font-size:11px;color:var(--hertz-steel);
   display:flex;align-items:center;gap:5px;
 }
- 
+
 /* ── COMPARISON ── */
 .compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:12px 16px 16px;}
 .compare-card{border-radius:4px;overflow:hidden;border:1.5px solid var(--hertz-border);}
@@ -286,7 +286,7 @@ body{
 .compare-sub{padding:6px 10px;font-size:10px;font-weight:600;}
 .compare-sub.ok{color:var(--green);}
 .compare-sub.bad{color:var(--red);}
- 
+
 .alert-strip{
   margin:0 16px 14px;padding:12px 14px;
   background:#FEF2F2;border:1.5px solid #FECACA;border-radius:6px;
@@ -294,7 +294,7 @@ body{
   font-size:13px;color:#991B1B;font-weight:600;
   border-left:4px solid var(--red);
 }
- 
+
 /* ── SUMMARY STATS ── */
 .stats-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;padding:12px 16px 16px;}
 .stat{
@@ -308,7 +308,7 @@ body{
 .stat-num.hi{color:var(--red);}
 .stat-num.ok{color:var(--green-dark);}
 .stat-lbl{font-size:10px;color:var(--hertz-steel);margin-top:3px;line-height:1.3;font-weight:500;}
- 
+
 /* ── SUCCESS BANNER ── */
 .success-banner{
   background:var(--hertz-black);
@@ -319,7 +319,7 @@ body{
 .success-icon{font-size:28px;}
 .success-title{font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:700;color:var(--hertz-yellow);letter-spacing:0.5px;}
 .success-sub{font-size:12px;color:rgba(255,255,255,0.65);margin-top:2px;line-height:1.4;}
- 
+
 /* ── BOTTOM BTN ── */
 .bottom-bar{
   padding:14px 16px;background:white;
@@ -346,12 +346,12 @@ body{
 }
 .btn-success{background:var(--green);color:white;}
 .btn-outline{background:white;color:var(--hertz-steel);border:1.5px solid var(--hertz-border);}
- 
+
 /* ── STATUS PILL ── */
 .pill-ok{display:inline-flex;align-items:center;gap:4px;background:#F0FDF4;color:#166534;font-size:11px;font-weight:700;padding:3px 10px;border-radius:3px;border:1px solid #BBF7D0;}
 .pill-warn{display:inline-flex;align-items:center;gap:4px;background:#FEF2F2;color:#991B1B;font-size:11px;font-weight:700;padding:3px 10px;border-radius:3px;border:1px solid #FECACA;}
 .pill-yellow{display:inline-flex;align-items:center;gap:4px;background:var(--yellow-soft);color:var(--hertz-yellow-dark);font-size:11px;font-weight:700;padding:3px 10px;border-radius:3px;border:1px solid var(--hertz-yellow);}
- 
+
 /* ── TIMELINE ── */
 .timeline{padding:4px 16px 16px;}
 .tl-item{display:flex;gap:12px;padding-bottom:16px;position:relative;}
@@ -368,13 +368,13 @@ body{
 }
 .tl-title{font-size:13px;font-weight:600;color:var(--hertz-black);padding-top:5px;}
 .tl-meta{font-size:11px;color:var(--hertz-steel);margin-top:2px;}
- 
+
 /* ── DIVIDER ── */
 .section-divider{
   height:1px;background:var(--hertz-border);
   margin:0 16px;
 }
- 
+
 /* ── YELLOW ACCENT LINE ── */
 .yellow-rule{
   height:2px;background:var(--hertz-yellow);
@@ -383,7 +383,7 @@ body{
 </style>
 </head>
 <body>
- 
+
 <div class="topbar">
   <div class="topbar-logo">
     <div class="topbar-logo-text">Hertz</div>
@@ -392,7 +392,7 @@ body{
     <div class="topbar-badge">Inspección</div>
   </div>
 </div>
- 
+
 <!-- ═══════════════════════════════
      S1 — BIENVENIDA / CONTRATO
 ════════════════════════════════ -->
@@ -431,7 +431,7 @@ body{
     <button class="btn btn-primary" onclick="go(2)">Iniciar inspección →</button>
   </div>
 </div>
- 
+
 <!-- ═══════════════════════════════
      S2 — FOTOS
 ════════════════════════════════ -->
@@ -466,7 +466,7 @@ body{
     <button class="btn btn-primary" onclick="go(3)">Continuar →</button>
   </div>
 </div>
- 
+
 <!-- ═══════════════════════════════
      S3 — MAPA DE DAÑOS
 ════════════════════════════════ -->
@@ -518,7 +518,7 @@ body{
     <button class="btn btn-primary" onclick="goAI()">Analizar con IA →</button>
   </div>
 </div>
- 
+
 <!-- ═══════════════════════════════
      S4 — ANÁLISIS IA
 ════════════════════════════════ -->
@@ -555,7 +555,7 @@ body{
         Estos daños quedan registrados y <strong>no serán cobrados</strong> al devolver el vehículo.
       </div>
     </div>
- 
+
     <div class="card" id="sig-card" style="display:none;">
       <div class="card-head"><div class="card-accent"></div>Firma digital</div>
       <div style="padding:10px 16px 8px;font-size:13px;color:var(--hertz-steel);">
@@ -572,7 +572,7 @@ body{
     <button class="btn btn-primary" id="btn-firmar" style="display:none;" onclick="go(5)">Confirmar y firmar ✓</button>
   </div>
 </div>
- 
+
 <!-- ═══════════════════════════════
      S5 — CHECK-IN COMPLETO
 ════════════════════════════════ -->
@@ -611,7 +611,7 @@ body{
     <button class="btn btn-primary" onclick="go('co1')">Ver flujo de Check-out →</button>
   </div>
 </div>
- 
+
 <!-- ═══════════════════════════════
      CO1 — CHECK-OUT: FOTOS
 ════════════════════════════════ -->
@@ -645,7 +645,7 @@ body{
     <button class="btn btn-primary" onclick="goCOAI()">Comparar con check-in →</button>
   </div>
 </div>
- 
+
 <!-- ═══════════════════════════════
      CO2 — COMPARACIÓN IA
 ════════════════════════════════ -->
@@ -667,7 +667,7 @@ body{
         </div>
       </div>
     </div>
- 
+
     <div id="co-results" style="display:none;flex-direction:column;gap:14px;">
       <div class="alert-strip">
         <span style="font-size:20px;">⚠️</span>
@@ -704,7 +704,7 @@ body{
     <div id="co-waiting" style="flex:1;display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--hertz-steel);">Analizando...</div>
   </div>
 </div>
- 
+
 <!-- ═══════════════════════════════
      CO3 — REPORTE FINAL
 ════════════════════════════════ -->
@@ -768,18 +768,18 @@ body{
     <button class="btn btn-primary" onclick="go(1)">↩ Reiniciar demo</button>
   </div>
 </div>
- 
+
 <script>
 let phCount=0, coCount=0, dmgType='scratch', dmgIdx=0;
 const dmgNames={scratch:['Rayón — puerta frontal izq.','Rayón — espejo der.','Rayón — capó','Rayón — lateral trasero'],dent:['Abolladura — paragolpes','Abolladura — puerta trasera','Abolladura — aleta frontal']};
 let dmgCounters={scratch:0,dent:0};
- 
+
 function go(n){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   const el = document.getElementById('s'+n);
   if(el){el.classList.add('active');window.scrollTo(0,0);}
 }
- 
+
 function snap(el,zone){
   if(el.classList.contains('done'))return;
   el.classList.add('done');
@@ -789,7 +789,7 @@ function snap(el,zone){
   document.getElementById('ph-fill').style.width=pct+'%';
   document.getElementById('ph-count').textContent=phCount+' / 8';
 }
- 
+
 function snapCO(el,zone){
   if(el.classList.contains('done'))return;
   el.classList.add('done');
@@ -799,13 +799,13 @@ function snapCO(el,zone){
   document.getElementById('co-fill').style.width=pct+'%';
   document.getElementById('co-count').textContent=coCount+' / 8';
 }
- 
+
 function selDmg(type,btn){
   dmgType=type;
   document.querySelectorAll('.dmg-btn').forEach(b=>b.classList.remove('sel'));
   btn.classList.add('sel');
 }
- 
+
 function addDot(e,container){
   const rect=container.getBoundingClientRect();
   const x=e.clientX-rect.left, y=e.clientY-rect.top;
@@ -825,7 +825,7 @@ function addDot(e,container){
   item.innerHTML=`<span class="dmg-badge ${dmgType==='scratch'?'b-scratch':'b-dent'}">${dmgType==='scratch'?'Rayón':'Abolladura'}</span><span>${name}</span>`;
   list.appendChild(item);
 }
- 
+
 function goAI(){
   go(4);
   setTimeout(()=>{
@@ -835,7 +835,7 @@ function goAI(){
     document.getElementById('btn-firmar').style.display='block';
   },2000);
 }
- 
+
 function goCOAI(){
   go('co2');
   setTimeout(()=>{
@@ -849,4 +849,3 @@ function goCOAI(){
 </script>
 </body>
 </html>
- 
