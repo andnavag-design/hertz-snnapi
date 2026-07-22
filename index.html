@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Snnapi — Inspección Vehicular</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600&display=swap');
+
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+
+:root{
+  --mg:#CB6CE6;
+  --pu:#833AE0;
+  --navy:#0D1B2A;
+  --slate:#4A4E69;
+  --cloud:#F5F6F8;
+  --green:#22C55E;
+  --yellow:#F59E0B;
+  --red:#EF4444;
+  --border:#E2E8F0;
+  --white:#fff;
+}
+
+body{
+  font-family:'Inter',sans-serif;
+  background:var(--cloud);
+  color:var(--navy);
+  min-height:100vh;
+  max-width:430px;
+  margin:0 auto;
+}
+
+/* ── TOPBAR ── */
+.topbar{
+  background:var(--navy);
+  padding:14px 20px;
+  display:flex;align-items:center;justify-content:space-between;
+  position:sticky;top:0;z-index:50;
+}
+.topbar-logo{
+  font-family:'Poppins',sans-serif;font-weight:700;font-size:18px;
+  color:var(--mg);letter-spacing:0.5px;
+}
+.topbar-sub{font-size:11px;color:rgba(255,255,255,0.5);font-weight:400;margin-top:1px;}
+.topbar-badge{
+  background:rgba(203,108,230,0.15);color:var(--mg);
+  font-size:10px;font-weight:700;padding:4px 10px;
+  border-radius:20px;border:1px solid rgba(203,108,230,0.3);
+}
+
+/* ── SCREENS ── */
+.screen{display:none;flex-direction:column;min-height:calc(100vh - 58px);}
+.screen.active{display:flex;}
+
+/* ── PROGRESS BAR TOP ── */
+.progress-top{height:3px;background:var(--border);position:relative;}
+.progress-top-fill{
+  height:100%;
+  background:linear-gradient(90deg,var(--pu),var(--mg));
+  transition:width 0.4s ease;
+}
+
+/* ── HERO BANNER ── */
+.hero{
+  background:var(--navy);
+  padding:24px 20px 28px;
+  display:flex;flex-direction:column;gap:6px;
+}
+.hero-eyebrow{
+  font-size:11px;font-weight:600;color:var(--mg);
+  text-transform:uppercase;letter-spacing:1px;
+}
+.hero-title{
+  font-family:'Poppins',sans-serif;font-size:22px;font-weight:700;
+  color:var(--white);line-height:1.2;
+}
+.hero-sub{font-size:13px;color:rgba(255,255,255,0.55);margin-top:2px;}
+
+/* ── CAR PILL ── */
+.car-pill{
+  background:rgba(203,108,230,0.12);
+  border:1px solid rgba(203,108,230,0.25);
+  border-radius:12px;
+  margin:0 20px;
+  padding:14px 16px;
+  display:flex;align-items:center;gap:14px;
+  margin-top:-12px;
+  position:relative;z-index:2;
+}
+.car-icon{
+  width:48px;height:48px;background:var(--navy);border-radius:10px;
+  display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;
+}
+.car-info{}
+.car-name{font-family:'Poppins',sans-serif;font-size:15px;font-weight:600;color:var(--white);}
+.car-plate{
+  display:inline-block;background:var(--white);color:var(--navy);
+  font-size:11px;font-weight:800;padding:2px 8px;border-radius:4px;
+  letter-spacing:2px;margin-top:3px;
+}
+
+/* ── BODY ── */
+.body{padding:20px;display:flex;flex-direction:column;gap:16px;flex:1;}
+
+/* ── CARD ── */
+.card{
+  background:var(--white);border-radius:14px;
+  box-shadow:0 1px 6px rgba(13,27,42,0.06);
+  overflow:hidden;
+}
+.card-head{
+  padding:14px 16px 0;
+  font-size:11px;font-weight:700;color:var(--slate);
+  text-transform:uppercase;letter-spacing:0.6px;
+  display:flex;align-items:center;gap:7px;
+}
+.card-dot{width:7px;height:7px;border-radius:50%;background:var(--mg);}
+.card-body{padding:12px 16px 16px;}
+
+/* ── INFO ROWS ── */
+.info-row{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:9px 0;border-bottom:1px solid var(--border);font-size:13px;
+}
+.info-row:last-child{border-bottom:none;}
+.info-label{color:var(--slate);}
+.info-val{font-weight:600;color:var(--navy);}
+
+/* ── PHOTO GRID ── */
+.photo-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:10px;
+  padding:12px 16px 16px;
+}
+.photo-zone{
+  aspect-ratio:1;border:2px dashed var(--border);border-radius:12px;
+  background:var(--cloud);display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:5px;
+  cursor:pointer;transition:all 0.2s;
+  font-size:11px;color:var(--slate);font-weight:600;text-align:center;padding:8px;
+}
+.photo-zone:active{transform:scale(0.97);}
+.photo-zone.done{
+  border-style:solid;border-color:var(--green);
+  background:#F0FDF4;color:var(--green);position:relative;
+}
+.photo-zone-icon{font-size:26px;}
+.photo-check{
+  position:absolute;top:6px;right:6px;
+  width:18px;height:18px;background:var(--green);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:10px;color:white;font-weight:700;
+}
+.photo-progress{
+  margin:0 16px 4px;display:flex;align-items:center;gap:10px;
+}
+.prog-bar{flex:1;height:5px;background:var(--border);border-radius:3px;overflow:hidden;}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--pu),var(--mg));border-radius:3px;transition:width 0.3s;}
+.prog-label{font-size:11px;color:var(--slate);font-weight:600;white-space:nowrap;}
+
+/* ── DAMAGE MAP ── */
+.map-wrap{
+  margin:12px 16px 16px;position:relative;
+  background:var(--cloud);border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  padding:20px;min-height:240px;
+  cursor:crosshair;
+}
+.map-svg{width:160px;}
+.dmg-dot{
+  position:absolute;width:22px;height:22px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:10px;font-weight:800;color:white;border:2px solid white;
+  box-shadow:0 2px 6px rgba(0,0,0,0.2);
+  animation:pop 0.25s ease;pointer-events:none;
+}
+@keyframes pop{0%{transform:scale(0);}70%{transform:scale(1.2);}100%{transform:scale(1);}}
+.dot-scratch{background:var(--yellow);}
+.dot-dent{background:var(--red);}
+
+.dmg-type-row{display:flex;gap:8px;padding:0 16px 14px;}
+.dmg-btn{
+  flex:1;padding:9px 6px;border-radius:10px;border:1.5px solid var(--border);
+  background:white;font-size:12px;font-weight:600;color:var(--slate);
+  display:flex;align-items:center;justify-content:center;gap:6px;cursor:pointer;
+  transition:all 0.2s;
+}
+.dmg-btn.sel{border-color:var(--mg);background:rgba(203,108,230,0.07);color:var(--navy);}
+.dmg-color{width:10px;height:10px;border-radius:50%;}
+
+.dmg-list{padding:0 16px 16px;display:flex;flex-direction:column;gap:6px;}
+.dmg-item{
+  display:flex;align-items:center;gap:8px;padding:8px 10px;
+  background:var(--cloud);border-radius:8px;font-size:12px;color:var(--navy);
+}
+.dmg-badge{
+  font-size:10px;font-weight:700;padding:2px 7px;border-radius:10px;white-space:nowrap;
+}
+.b-scratch{background:#FEF3C7;color:#92400E;}
+.b-dent{background:#FEE2E2;color:#991B1B;}
+
+/* ── AI BOX ── */
+.ai-box{
+  margin:0 16px 16px;padding:14px;
+  background:rgba(131,58,224,0.07);
+  border:1.5px solid rgba(203,108,230,0.25);
+  border-radius:12px;display:flex;gap:12px;
+}
+.ai-icon-wrap{
+  width:36px;height:36px;border-radius:9px;
+  background:linear-gradient(135deg,var(--pu),var(--mg));
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;flex-shrink:0;
+}
+.ai-label{font-size:10px;font-weight:700;color:var(--pu);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:4px;}
+.ai-text{font-size:13px;color:var(--navy);line-height:1.5;}
+.ai-spinner{
+  width:22px;height:22px;border:2.5px solid rgba(203,108,230,0.3);
+  border-top-color:var(--mg);border-radius:50%;
+  animation:spin 0.8s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+/* ── FINDINGS ── */
+.finding{
+  display:flex;align-items:flex-start;gap:7px;
+  background:white;border-radius:7px;padding:7px 9px;
+  margin-top:6px;font-size:12px;color:var(--navy);
+}
+
+/* ── SIGNATURE PAD ── */
+.sig-area{
+  margin:0 16px 16px;height:90px;
+  background:var(--cloud);border:2px dashed var(--border);
+  border-radius:12px;display:flex;align-items:center;justify-content:center;
+}
+.sig-preview{
+  font-family:'Poppins',sans-serif;font-size:26px;font-style:italic;
+  color:var(--navy);opacity:0.5;
+}
+.sig-meta{
+  padding:0 16px 14px;font-size:11px;color:var(--slate);
+  display:flex;align-items:center;gap:5px;
+}
+
+/* ── COMPARISON ── */
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:12px 16px 16px;}
+.compare-card{border-radius:10px;overflow:hidden;border:1.5px solid var(--border);}
+.compare-head{
+  padding:7px 10px;font-size:10px;font-weight:700;
+  text-transform:uppercase;letter-spacing:0.5px;
+  display:flex;align-items:center;gap:5px;
+}
+.head-in{background:#F0FDF4;color:#166534;}
+.head-out{background:#FFF7ED;color:#9A3412;}
+.compare-img{
+  width:100%;aspect-ratio:4/3;
+  display:flex;align-items:center;justify-content:center;font-size:36px;
+  background:var(--cloud);
+}
+.compare-img.damage{background:#FEF2F2;}
+.compare-sub{padding:6px 10px;font-size:10px;font-weight:500;}
+.compare-sub.ok{color:var(--green);}
+.compare-sub.bad{color:var(--red);}
+
+.alert-strip{
+  margin:0 16px 14px;padding:12px 14px;
+  background:#FEF2F2;border:1.5px solid #FECACA;border-radius:10px;
+  display:flex;align-items:center;gap:10px;
+  font-size:13px;color:#991B1B;font-weight:500;
+}
+
+/* ── SUMMARY STATS ── */
+.stats-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;padding:12px 16px 16px;}
+.stat{
+  background:var(--cloud);border-radius:10px;
+  padding:12px 8px;text-align:center;
+}
+.stat-num{
+  font-family:'Poppins',sans-serif;font-size:20px;font-weight:700;
+  color:var(--navy);line-height:1;
+}
+.stat-num.hi{color:var(--mg);}
+.stat-lbl{font-size:10px;color:var(--slate);margin-top:3px;line-height:1.3;}
+
+/* ── SUCCESS BANNER ── */
+.success-banner{
+  background:linear-gradient(135deg,#166534,#15803d);
+  margin:0 16px 16px;border-radius:12px;
+  padding:16px;display:flex;gap:12px;align-items:flex-start;
+}
+.success-icon{font-size:28px;}
+.success-title{font-family:'Poppins',sans-serif;font-size:15px;font-weight:700;color:white;}
+.success-sub{font-size:12px;color:rgba(255,255,255,0.75);margin-top:2px;line-height:1.4;}
+
+/* ── BOTTOM BTN ── */
+.bottom-bar{
+  padding:16px 20px;background:white;
+  border-top:1px solid var(--border);
+  position:sticky;bottom:0;z-index:40;
+  display:flex;gap:10px;
+}
+.btn{
+  flex:1;padding:14px;border-radius:12px;
+  font-size:14px;font-weight:700;font-family:'Inter',sans-serif;
+  cursor:pointer;border:none;transition:all 0.2s;
+}
+.btn:active{transform:scale(0.98);}
+.btn-primary{
+  background:linear-gradient(135deg,var(--pu),var(--mg));
+  color:white;box-shadow:0 4px 12px rgba(131,58,224,0.28);
+}
+.btn-ghost{
+  background:var(--cloud);color:var(--slate);
+  border:1.5px solid var(--border);flex:0 0 auto;width:50px;
+  display:flex;align-items:center;justify-content:center;font-size:18px;
+}
+.btn-success{background:var(--green);color:white;}
+.btn-outline{background:white;color:var(--slate);border:1.5px solid var(--border);}
+
+/* ── STATUS PILL ── */
+.pill-ok{display:inline-flex;align-items:center;gap:4px;background:#F0FDF4;color:#166534;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;border:1px solid #BBF7D0;}
+.pill-warn{display:inline-flex;align-items:center;gap:4px;background:#FEF2F2;color:#991B1B;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;border:1px solid #FECACA;}
+
+/* ── TIMELINE ── */
+.timeline{padding:4px 16px 16px;}
+.tl-item{display:flex;gap:12px;padding-bottom:16px;position:relative;}
+.tl-item:last-child{padding-bottom:0;}
+.tl-dot{
+  width:32px;height:32px;border-radius:50%;
+  background:linear-gradient(135deg,var(--pu),var(--mg));
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;flex-shrink:0;position:relative;z-index:1;
+}
+.tl-line{
+  position:absolute;left:15px;top:32px;bottom:0;
+  width:2px;background:var(--border);
+}
+.tl-title{font-size:13px;font-weight:600;color:var(--navy);padding-top:5px;}
+.tl-meta{font-size:11px;color:var(--slate);margin-top:2px;}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div>
+    <div class="topbar-logo">Snnapi</div>
+    <div class="topbar-sub">by HenkanCX</div>
+  </div>
+  <div class="topbar-badge">Demo</div>
+</div>
+
+<!-- ═══════════════════════════════
+     S1 — BIENVENIDA / CONTRATO
+════════════════════════════════ -->
+<div class="screen active" id="s1">
+  <div class="progress-top"><div class="progress-top-fill" style="width:20%"></div></div>
+  <div class="hero">
+    <div class="hero-eyebrow">Inspección de check-in</div>
+    <div class="hero-title">Hola, Carlos 👋</div>
+    <div class="hero-sub">Antes de recibir tu vehículo, completa esta inspección. Solo toma 3 minutos.</div>
+  </div>
+  <div class="car-pill">
+    <div class="car-icon">🚗</div>
+    <div class="car-info">
+      <div class="car-name">Toyota Corolla 2022</div>
+      <div class="car-plate">P-748291</div>
+    </div>
+  </div>
+  <div class="body">
+    <div class="card">
+      <div class="card-head"><div class="card-dot"></div>Detalles del contrato</div>
+      <div class="card-body">
+        <div class="info-row"><span class="info-label">Contrato</span><span class="info-val">RNT-2024-00847</span></div>
+        <div class="info-row"><span class="info-label">Retiro</span><span class="info-val">17 jul · 09:00 AM</span></div>
+        <div class="info-row"><span class="info-label">Devolución</span><span class="info-val">20 jul · 09:00 AM</span></div>
+        <div class="info-row"><span class="info-label">Sucursal</span><span class="info-val">Albrook Mall</span></div>
+        <div class="info-row"><span class="info-label">Km inicial</span><span class="info-val">34,821 km</span></div>
+        <div class="info-row"><span class="info-label">Combustible</span><span class="info-val">Lleno (100%)</span></div>
+        <div class="info-row"><span class="info-label">Estado</span><span class="pill-ok">✓ Confirmado</span></div>
+      </div>
+    </div>
+    <div style="font-size:12px;color:var(--slate);text-align:center;line-height:1.6;padding:4px 8px;">
+      Al completar esta inspección confirmas haber revisado el estado del vehículo.
+    </div>
+  </div>
+  <div class="bottom-bar">
+    <button class="btn btn-primary" onclick="go(2)">Iniciar inspección →</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════
+     S2 — FOTOS
+════════════════════════════════ -->
+<div class="screen" id="s2">
+  <div class="progress-top"><div class="progress-top-fill" style="width:40%"></div></div>
+  <div class="hero">
+    <div class="hero-eyebrow">Paso 1 de 2</div>
+    <div class="hero-title">Toma las fotos 📷</div>
+    <div class="hero-sub">Fotografía el vehículo en las 8 zonas indicadas.</div>
+  </div>
+  <div class="body" style="padding-top:16px;">
+    <div class="card">
+      <div class="card-head"><div class="card-dot"></div>Zonas a fotografiar</div>
+      <div class="photo-progress" style="padding-top:12px;">
+        <div class="prog-bar"><div class="prog-fill" id="ph-fill" style="width:0%"></div></div>
+        <div class="prog-label" id="ph-count">0 / 8</div>
+      </div>
+      <div class="photo-grid" id="photo-grid">
+        <div class="photo-zone" onclick="snap(this,'Frente')"><div class="photo-zone-icon">📷</div>Frente</div>
+        <div class="photo-zone" onclick="snap(this,'Trasera')"><div class="photo-zone-icon">📷</div>Trasera</div>
+        <div class="photo-zone" onclick="snap(this,'Lateral izq.')"><div class="photo-zone-icon">📷</div>Lateral izq.</div>
+        <div class="photo-zone" onclick="snap(this,'Lateral der.')"><div class="photo-zone-icon">📷</div>Lateral der.</div>
+        <div class="photo-zone" onclick="snap(this,'Interior')"><div class="photo-zone-icon">📷</div>Interior</div>
+        <div class="photo-zone" onclick="snap(this,'Tablero')"><div class="photo-zone-icon">📷</div>Tablero</div>
+        <div class="photo-zone" onclick="snap(this,'Cajuela')"><div class="photo-zone-icon">📷</div>Cajuela</div>
+        <div class="photo-zone" onclick="snap(this,'Llantas')"><div class="photo-zone-icon">📷</div>Llantas</div>
+      </div>
+    </div>
+  </div>
+  <div class="bottom-bar">
+    <button class="btn btn-ghost" onclick="go(1)">←</button>
+    <button class="btn btn-primary" onclick="go(3)">Continuar →</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════
+     S3 — MAPA DE DAÑOS
+════════════════════════════════ -->
+<div class="screen" id="s3">
+  <div class="progress-top"><div class="progress-top-fill" style="width:60%"></div></div>
+  <div class="hero">
+    <div class="hero-eyebrow">Paso 2 de 2</div>
+    <div class="hero-title">Marca daños visibles</div>
+    <div class="hero-sub">Toca el mapa para señalar rayones o abolladuras existentes.</div>
+  </div>
+  <div class="body" style="padding-top:16px;">
+    <div class="card">
+      <div class="card-head"><div class="card-dot"></div>Tipo de daño</div>
+      <div class="dmg-type-row">
+        <button class="dmg-btn sel" id="btn-scratch" onclick="selDmg('scratch',this)">
+          <div class="dmg-color" style="background:var(--yellow)"></div>Rayón
+        </button>
+        <button class="dmg-btn" id="btn-dent" onclick="selDmg('dent',this)">
+          <div class="dmg-color" style="background:var(--red)"></div>Abolladura
+        </button>
+      </div>
+      <div class="card-head" style="padding-top:0;"><div class="card-dot"></div>Mapa del vehículo</div>
+      <div class="map-wrap" id="car-map" onclick="addDot(event,this)">
+        <svg class="map-svg" viewBox="0 0 200 360" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="40" y="60" width="120" height="240" rx="20" fill="#DDE1E7" stroke="#9CA3AF" stroke-width="2"/>
+          <rect x="55" y="120" width="90" height="120" rx="8" fill="#B8BFC8" stroke="#9CA3AF" stroke-width="1.5"/>
+          <rect x="58" y="90" width="84" height="36" rx="4" fill="#93C5FD" stroke="#9CA3AF" stroke-width="1.5" opacity="0.7"/>
+          <rect x="58" y="234" width="84" height="36" rx="4" fill="#93C5FD" stroke="#9CA3AF" stroke-width="1.5" opacity="0.7"/>
+          <ellipse cx="42" cy="100" rx="16" ry="22" fill="#374151" stroke="#1F2937" stroke-width="1.5"/>
+          <ellipse cx="158" cy="100" rx="16" ry="22" fill="#374151" stroke="#1F2937" stroke-width="1.5"/>
+          <ellipse cx="42" cy="260" rx="16" ry="22" fill="#374151" stroke="#1F2937" stroke-width="1.5"/>
+          <ellipse cx="158" cy="260" rx="16" ry="22" fill="#374151" stroke="#1F2937" stroke-width="1.5"/>
+          <line x1="40" y1="180" x2="160" y2="180" stroke="#9CA3AF" stroke-width="1" stroke-dasharray="4,3"/>
+          <rect x="55" y="52" width="90" height="12" rx="4" fill="#9CA3AF"/>
+          <rect x="55" y="296" width="90" height="12" rx="4" fill="#9CA3AF"/>
+          <rect x="50" y="60" width="24" height="14" rx="3" fill="#FCD34D" opacity="0.8"/>
+          <rect x="126" y="60" width="24" height="14" rx="3" fill="#FCD34D" opacity="0.8"/>
+          <rect x="50" y="286" width="24" height="14" rx="3" fill="#FCA5A5" opacity="0.8"/>
+          <rect x="126" y="286" width="24" height="14" rx="3" fill="#FCA5A5" opacity="0.8"/>
+        </svg>
+      </div>
+      <div class="dmg-list" id="dmg-list">
+        <div style="font-size:12px;color:var(--slate);text-align:center;padding:6px 0;">Sin daños marcados aún</div>
+      </div>
+    </div>
+  </div>
+  <div class="bottom-bar">
+    <button class="btn btn-ghost" onclick="go(2)">←</button>
+    <button class="btn btn-primary" onclick="goAI()">Analizar con IA →</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════
+     S4 — ANÁLISIS IA
+════════════════════════════════ -->
+<div class="screen" id="s4">
+  <div class="progress-top"><div class="progress-top-fill" style="width:75%"></div></div>
+  <div class="hero">
+    <div class="hero-eyebrow">Análisis automático</div>
+    <div class="hero-title">IA revisando fotos 🤖</div>
+    <div class="hero-sub">Detectamos daños en tus imágenes con computer vision.</div>
+  </div>
+  <div class="body" style="padding-top:16px;">
+    <div class="card" id="ai-loading-card">
+      <div class="card-head"><div class="card-dot"></div>Procesando</div>
+      <div class="ai-box" style="margin:12px 16px 16px;">
+        <div class="ai-spinner"></div>
+        <div>
+          <div class="ai-label">IA Snnapi</div>
+          <div class="ai-text">Analizando 8 fotografías...</div>
+        </div>
+      </div>
+    </div>
+    <div class="card" id="ai-result-card" style="display:none;">
+      <div class="card-head"><div class="card-dot"></div>Resultado del análisis</div>
+      <div class="ai-box" style="margin:12px 16px 8px;">
+        <div class="ai-icon-wrap">🤖</div>
+        <div>
+          <div class="ai-label">IA Snnapi</div>
+          <div class="ai-text">Se detectaron <strong>2 daños preexistentes</strong> en el vehículo.</div>
+          <div class="finding">⚡ Rayón leve — puerta delantera izq.</div>
+          <div class="finding">⚡ Abolladura — paragolpes trasero</div>
+        </div>
+      </div>
+      <div style="padding:0 16px 14px;font-size:12px;color:var(--slate);line-height:1.5;">
+        Estos daños quedan registrados y <strong>no serán cobrados</strong> al devolver el auto.
+      </div>
+    </div>
+
+    <div class="card" id="sig-card" style="display:none;">
+      <div class="card-head"><div class="card-dot"></div>Firma digital</div>
+      <div style="padding:10px 16px 8px;font-size:13px;color:var(--slate);">
+        Al firmar confirmas que revisaste el vehículo y aceptas el estado documentado.
+      </div>
+      <div class="sig-area">
+        <div class="sig-preview">Carlos M.</div>
+      </div>
+      <div class="sig-meta">📍 Ciudad de Panamá · 17 jul 2024, 09:12 AM</div>
+    </div>
+  </div>
+  <div class="bottom-bar">
+    <button class="btn btn-ghost" onclick="go(3)">←</button>
+    <button class="btn btn-primary" id="btn-firmar" style="display:none;" onclick="go(5)">Confirmar y firmar ✓</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════
+     S5 — CHECK-IN COMPLETO
+════════════════════════════════ -->
+<div class="screen" id="s5">
+  <div class="progress-top"><div class="progress-top-fill" style="width:100%"></div></div>
+  <div class="hero" style="background:linear-gradient(135deg,#166534,#15803d);">
+    <div class="hero-eyebrow" style="color:rgba(255,255,255,0.7);">Check-in completado</div>
+    <div class="hero-title">¡Listo, Carlos! 🎉</div>
+    <div class="hero-sub">Tu inspección fue guardada y firmada. Disfruta tu viaje.</div>
+  </div>
+  <div class="body" style="padding-top:20px;">
+    <div class="card">
+      <div class="stats-row">
+        <div class="stat"><div class="stat-num">8</div><div class="stat-lbl">Fotos capturadas</div></div>
+        <div class="stat"><div class="stat-num hi">2</div><div class="stat-lbl">Daños preexistentes</div></div>
+        <div class="stat"><div class="stat-num">✓</div><div class="stat-lbl">Firmado digital</div></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head"><div class="card-dot"></div>Resumen del check-in</div>
+      <div class="card-body">
+        <div class="info-row"><span class="info-label">Vehículo</span><span class="info-val">Toyota Corolla · P-748291</span></div>
+        <div class="info-row"><span class="info-label">Fecha / hora</span><span class="info-val">17 jul · 09:12 AM</span></div>
+        <div class="info-row"><span class="info-label">Km al retiro</span><span class="info-val">34,821 km</span></div>
+        <div class="info-row"><span class="info-label">Combustible</span><span class="info-val">100%</span></div>
+        <div class="info-row"><span class="info-label">Daños preexist.</span><span class="pill-warn">2 registrados</span></div>
+        <div class="info-row"><span class="info-label">Estado</span><span class="pill-ok">✓ Firmado</span></div>
+      </div>
+    </div>
+    <div style="text-align:center;font-size:12px;color:var(--slate);padding:4px 8px;line-height:1.6;">
+      Recibirás el link de check-out por WhatsApp al momento de la devolución.
+    </div>
+  </div>
+  <div class="bottom-bar">
+    <button class="btn btn-success" onclick="go('co1')">Ver flujo de Check-out →</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════
+     CO1 — CHECK-OUT: FOTOS DE DEVOLUCIÓN
+════════════════════════════════ -->
+<div class="screen" id="sco1">
+  <div class="progress-top"><div class="progress-top-fill" style="width:40%"></div></div>
+  <div class="hero" style="background:#1a3a5c;">
+    <div class="hero-eyebrow">Inspección de check-out</div>
+    <div class="hero-title">Devolviendo el auto 🔍</div>
+    <div class="hero-sub">20 jul · Sucursal Albrook Mall. Fotografía el vehículo en las mismas zonas.</div>
+  </div>
+  <div class="body" style="padding-top:16px;">
+    <div class="card">
+      <div class="card-head"><div class="card-dot"></div>Fotos de devolución</div>
+      <div class="photo-progress" style="padding-top:12px;">
+        <div class="prog-bar"><div class="prog-fill" id="co-fill" style="width:0%"></div></div>
+        <div class="prog-label" id="co-count">0 / 8</div>
+      </div>
+      <div class="photo-grid" id="co-grid">
+        <div class="photo-zone" onclick="snapCO(this,'Frente')"><div class="photo-zone-icon">📷</div>Frente</div>
+        <div class="photo-zone" onclick="snapCO(this,'Trasera')"><div class="photo-zone-icon">📷</div>Trasera</div>
+        <div class="photo-zone" onclick="snapCO(this,'Lateral izq.')"><div class="photo-zone-icon">📷</div>Lateral izq.</div>
+        <div class="photo-zone" onclick="snapCO(this,'Lateral der.')"><div class="photo-zone-icon">📷</div>Lateral der.</div>
+        <div class="photo-zone" onclick="snapCO(this,'Interior')"><div class="photo-zone-icon">📷</div>Interior</div>
+        <div class="photo-zone" onclick="snapCO(this,'Tablero')"><div class="photo-zone-icon">📷</div>Tablero</div>
+        <div class="photo-zone" onclick="snapCO(this,'Cajuela')"><div class="photo-zone-icon">📷</div>Cajuela</div>
+        <div class="photo-zone" onclick="snapCO(this,'Llantas')"><div class="photo-zone-icon">📷</div>Llantas</div>
+      </div>
+    </div>
+  </div>
+  <div class="bottom-bar">
+    <button class="btn btn-primary" onclick="goCOAI()">Comparar con check-in →</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════
+     CO2 — COMPARACIÓN IA
+════════════════════════════════ -->
+<div class="screen" id="sco2">
+  <div class="progress-top"><div class="progress-top-fill" style="width:75%"></div></div>
+  <div class="hero" style="background:#1a3a5c;">
+    <div class="hero-eyebrow">Análisis comparativo</div>
+    <div class="hero-title">IA comparando fotos 🤖</div>
+    <div class="hero-sub">Comparando check-in vs. check-out automáticamente.</div>
+  </div>
+  <div class="body" style="padding-top:16px;">
+
+    <div class="card" id="co-loading-card">
+      <div class="card-head"><div class="card-dot"></div>Procesando</div>
+      <div class="ai-box" style="margin:12px 16px 16px;">
+        <div class="ai-spinner"></div>
+        <div>
+          <div class="ai-label">IA Snnapi</div>
+          <div class="ai-text">Comparando 16 fotografías (8 check-in + 8 check-out)...</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="co-results" style="display:none;display:flex;flex-direction:column;gap:16px;">
+      <div class="alert-strip">
+        <span style="font-size:20px;">⚠️</span>
+        <span><strong>1 daño nuevo detectado</strong> no presente en el check-in.</span>
+      </div>
+      <div class="card">
+        <div class="card-head"><div class="card-dot"></div>Comparación visual</div>
+        <div class="compare-grid">
+          <div class="compare-card">
+            <div class="compare-head head-in">✅ Check-in</div>
+            <div class="compare-img">🚗</div>
+            <div class="compare-sub ok">Sin daño</div>
+          </div>
+          <div class="compare-card" style="border-color:var(--red);">
+            <div class="compare-head head-out">⚠️ Check-out</div>
+            <div class="compare-img damage">🚗💥</div>
+            <div class="compare-sub bad">Rayón nuevo</div>
+          </div>
+        </div>
+        <div style="padding:0 16px 14px;">
+          <div class="ai-box" style="margin:0;">
+            <div class="ai-icon-wrap" style="width:30px;height:30px;border-radius:7px;font-size:14px;">🤖</div>
+            <div>
+              <div class="ai-label">IA Snnapi</div>
+              <div class="ai-text" style="font-size:12px;"><strong>Paragolpes trasero izquierdo.</strong> Confianza: 94%. No estaba en check-in firmado.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bottom-bar">
+    <button class="btn btn-primary" id="btn-co-reporte" style="display:none;" onclick="go('co3')">Ver reporte final →</button>
+    <div id="co-waiting" style="flex:1;display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--slate);">Analizando...</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════
+     CO3 — REPORTE FINAL
+════════════════════════════════ -->
+<div class="screen" id="sco3">
+  <div class="progress-top"><div class="progress-top-fill" style="width:100%"></div></div>
+  <div class="hero" style="background:var(--navy);">
+    <div class="hero-eyebrow">Reporte #INS-2024-00847</div>
+    <div class="hero-title">Check-out completado</div>
+    <div class="hero-sub">Toyota Corolla · P-748291 · Carlos Mendoza Ríos</div>
+  </div>
+  <div class="body" style="padding-top:20px;">
+    <div class="card">
+      <div class="stats-row">
+        <div class="stat"><div class="stat-num">3 días</div><div class="stat-lbl">Duración renta</div></div>
+        <div class="stat"><div class="stat-num hi">1</div><div class="stat-lbl">Daño nuevo</div></div>
+        <div class="stat"><div class="stat-num">383 km</div><div class="stat-lbl">Recorridos</div></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head"><div class="card-dot"></div>Resumen</div>
+      <div class="card-body">
+        <div class="info-row"><span class="info-label">Check-in</span><span class="info-val">17 jul · 09:12 AM</span></div>
+        <div class="info-row"><span class="info-label">Check-out</span><span class="info-val">20 jul · 08:54 AM</span></div>
+        <div class="info-row"><span class="info-label">Km inicial / final</span><span class="info-val">34,821 / 35,204</span></div>
+        <div class="info-row"><span class="info-label">Combustible</span><span class="info-val pill-warn">3/4 — cargo aplica</span></div>
+        <div class="info-row"><span class="info-label">Daño nuevo</span><span class="info-val" style="color:var(--red);font-size:12px;">Rayón paragolpes trasero izq.</span></div>
+        <div class="info-row"><span class="info-label">Cargo</span><span class="pill-warn">Pendiente</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head"><div class="card-dot"></div>Línea de tiempo</div>
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-line"></div>
+          <div class="tl-dot">✓</div>
+          <div><div class="tl-title">Check-in firmado</div><div class="tl-meta">17 jul · 09:12 AM · 2 daños preexistentes</div></div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-line"></div>
+          <div class="tl-dot">✓</div>
+          <div><div class="tl-title">Renta en curso</div><div class="tl-meta">3 días · 383 km recorridos</div></div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-line"></div>
+          <div class="tl-dot">⚠️</div>
+          <div><div class="tl-title">Check-out — daño detectado</div><div class="tl-meta">20 jul · 08:54 AM · IA 94% confianza</div></div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot">📄</div>
+          <div><div class="tl-title">Reporte generado</div><div class="tl-meta">Enviado por WhatsApp y email</div></div>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;gap:10px;">
+      <button class="btn btn-outline" style="flex:1;font-size:13px;" onclick="()=>{}">📄 PDF</button>
+      <button class="btn btn-outline" style="flex:1;font-size:13px;" onclick="()=>{}">📧 Email</button>
+    </div>
+  </div>
+  <div class="bottom-bar">
+    <button class="btn btn-primary" onclick="go(1)">↩ Reiniciar demo</button>
+  </div>
+</div>
+
+<script>
+let phCount=0, coCount=0, dmgType='scratch', dmgIdx=0;
+const dmgNames={scratch:['Rayón — puerta frontal izq.','Rayón — espejo der.','Rayón — capó','Rayón — lateral trasero'],dent:['Abolladura — paragolpes','Abolladura — puerta trasera','Abolladura — aleta frontal']};
+let dmgCounters={scratch:0,dent:0};
+
+function go(n){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  const id = typeof n==='string'? 's'+n : 's'+n;
+  const el = document.getElementById(id) || document.getElementById('s'+n);
+  if(el){el.classList.add('active');window.scrollTo(0,0);}
+}
+
+function snap(el,zone){
+  if(el.classList.contains('done'))return;
+  el.classList.add('done');
+  el.innerHTML=`<div class="photo-zone-icon">🖼️</div><div class="photo-check">✓</div>${zone}`;
+  phCount++;
+  const pct=Math.round(phCount/8*100);
+  document.getElementById('ph-fill').style.width=pct+'%';
+  document.getElementById('ph-count').textContent=phCount+' / 8';
+}
+
+function snapCO(el,zone){
+  if(el.classList.contains('done'))return;
+  el.classList.add('done');
+  el.innerHTML=`<div class="photo-zone-icon">🖼️</div><div class="photo-check">✓</div>${zone}`;
+  coCount++;
+  const pct=Math.round(coCount/8*100);
+  document.getElementById('co-fill').style.width=pct+'%';
+  document.getElementById('co-count').textContent=coCount+' / 8';
+}
+
+function selDmg(type,btn){
+  dmgType=type;
+  document.querySelectorAll('.dmg-btn').forEach(b=>b.classList.remove('sel'));
+  btn.classList.add('sel');
+}
+
+function addDot(e,container){
+  const rect=container.getBoundingClientRect();
+  const x=e.clientX-rect.left, y=e.clientY-rect.top;
+  dmgIdx++;
+  const dot=document.createElement('div');
+  dot.className='dmg-dot '+(dmgType==='scratch'?'dot-scratch':'dot-dent');
+  dot.textContent=dmgIdx;
+  dot.style.left=(x-11)+'px'; dot.style.top=(y-11)+'px';
+  container.appendChild(dot);
+  const list=document.getElementById('dmg-list');
+  if(dmgIdx===1)list.innerHTML='';
+  const names=dmgNames[dmgType];
+  const name=names[dmgCounters[dmgType]%names.length];
+  dmgCounters[dmgType]++;
+  const item=document.createElement('div');
+  item.className='dmg-item';
+  item.innerHTML=`<span class="dmg-badge ${dmgType==='scratch'?'b-scratch':'b-dent'}">${dmgType==='scratch'?'Rayón':'Abolladura'}</span><span>${name}</span>`;
+  list.appendChild(item);
+}
+
+function goAI(){
+  go(4);
+  setTimeout(()=>{
+    document.getElementById('ai-loading-card').style.display='none';
+    document.getElementById('ai-result-card').style.display='block';
+    document.getElementById('sig-card').style.display='block';
+    document.getElementById('btn-firmar').style.display='block';
+  },2000);
+}
+
+function goCOAI(){
+  go('co2');
+  setTimeout(()=>{
+    document.getElementById('co-loading-card').style.display='none';
+    const r=document.getElementById('co-results');
+    r.style.display='flex';
+    document.getElementById('btn-co-reporte').style.display='block';
+    document.getElementById('co-waiting').style.display='none';
+  },2200);
+}
+</script>
+</body>
+</html>
